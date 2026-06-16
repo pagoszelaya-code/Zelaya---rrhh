@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RRHH - Centro de Estética</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root{
+  --navy:#0A1929;--bg:#f0f5fc;--card:#ffffff;--border:#d0e2f4;
+  --blue-50:#E6F1FB;--blue-100:#B5D4F4;--blue-200:#85B7EB;--blue-300:#5599DE;
+  --blue-400:#378ADD;--blue-500:#2272C3;--blue-600:#185FA5;--blue-700:#104B88;
+  --blue-800:#0C447C;--blue-900:#042C53;
+  --text-primary:#0A1929;--text-secondary:#4A6785;--text-muted:#7A99B8;
+  --success:#1a7a4a;--success-bg:#e6f7ef;
+  --warning:#b45309;--warning-bg:#fef3c7;
+  --danger:#c0392b;--danger-bg:#fde8e6;
+  --sidebar-w:230px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;}
+
+/* LOGIN */
+.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--navy);}
+.login-box{background:#fff;border-radius:16px;padding:40px 36px;width:380px;box-shadow:0 24px 60px rgba(0,0,0,0.25);}
+.login-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;}
+.login-logo-icon{width:40px;height:40px;border-radius:10px;background:var(--blue-600);display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;}
+.login-logo-text{font-size:16px;font-weight:600;color:var(--blue-900);}
+.login-logo-sub{font-size:12px;color:var(--text-muted);}
+.login-title{font-size:22px;font-weight:600;color:var(--blue-900);margin-bottom:6px;}
+.login-sub{font-size:13px;color:var(--text-muted);margin-bottom:28px;}
+.pin-row{display:flex;gap:10px;justify-content:center;margin-bottom:10px;}
+.pin-box{width:56px;height:60px;border:2px solid var(--border);border-radius:10px;text-align:center;font-size:1.6rem;font-weight:700;outline:none;background:#fff;color:var(--blue-900);font-family:'DM Mono',monospace;transition:border-color .15s;}
+.pin-box:focus{border-color:var(--blue-500);}
+.err-msg{font-size:12px;color:var(--danger);text-align:center;min-height:18px;margin:6px 0;}
+.btn-login{width:100%;padding:13px;background:var(--blue-600);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s;margin-top:4px;}
+.btn-login:hover{background:var(--blue-700);}
+.btn-ghost-login{width:100%;padding:11px;background:transparent;color:var(--text-muted);border:1px solid var(--border);border-radius:10px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:8px;transition:all .15s;}
+.btn-ghost-login:hover{border-color:var(--blue-300);color:var(--blue-700);}
+.form-group{margin-bottom:14px;}
+.form-label{font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:5px;display:block;}
+.form-control{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-primary);outline:none;transition:border-color .2s;background:#fff;}
+.form-control:focus{border-color:var(--blue-400);}
+
+/* LAYOUT */
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--navy);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100;}
+.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.07);}
+.logo-text{font-size:14px;font-weight:600;color:#fff;}
+.logo-sub{font-size:11px;color:var(--blue-300);margin-top:2px;}
+.sidebar-nav{flex:1;padding:12px 0;overflow-y:auto;}
+.nav-label{font-size:10px;font-weight:500;color:var(--blue-400);letter-spacing:.8px;text-transform:uppercase;padding:10px 20px 4px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;color:var(--blue-200);font-size:13px;font-weight:400;transition:all .15s;border-left:3px solid transparent;}
+.nav-item:hover{background:rgba(255,255,255,0.05);color:#fff;}
+.nav-item.on{background:rgba(55,138,221,0.15);color:var(--blue-100);border-left-color:var(--blue-400);font-weight:500;}
+.nav-item i{font-size:16px;flex-shrink:0;}
+.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,0.07);}
+.user-chip{display:flex;align-items:center;gap:10px;}
+.user-av{width:32px;height:32px;border-radius:50%;background:var(--blue-600);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--blue-100);flex-shrink:0;}
+.user-name{font-size:12px;font-weight:500;color:#e0eefa;}
+.user-role{font-size:10px;color:var(--blue-400);}
+.main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+.topbar{height:58px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:50;}
+.page-title{font-size:15px;font-weight:600;color:var(--blue-900);}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+.topbar-date{font-size:12px;color:var(--text-muted);font-family:'DM Mono',monospace;}
+.btn-logout{padding:6px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text-secondary);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px;transition:all .15s;}
+.btn-logout:hover{border-color:var(--blue-300);color:var(--blue-700);}
+.page-content{padding:24px 28px;flex:1;}
+
+/* VIEWS */
+.view{display:none;}
+.view.on{display:block;}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.section-title{font-size:11px;font-weight:600;color:var(--blue-800);text-transform:uppercase;letter-spacing:.6px;}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:16px;}
+.card-title{font-size:13px;font-weight:600;color:var(--blue-800);margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+.card-title i{color:var(--blue-400);font-size:15px;}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden;}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue-400);}
+.kpi-card.green::before{background:var(--success);}
+.kpi-card.amber::before{background:#e07b00;}
+.kpi-card.red::before{background:var(--danger);}
+.kpi-label{font-size:10px;font-weight:500;color:var(--text-muted);letter-spacing:.4px;text-transform:uppercase;margin-bottom:8px;}
+.kpi-val{font-size:28px;font-weight:600;color:var(--blue-900);font-family:'DM Mono',monospace;line-height:1;margin-bottom:4px;}
+.kpi-val.green{color:var(--success);}
+.kpi-val.amber{color:#b05e00;}
+.kpi-val.red{color:var(--danger);}
+.kpi-sub{font-size:11px;color:var(--text-muted);}
+.kpi-icon{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:8px;background:var(--blue-50);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--blue-500);}
+
+/* FICHAJE */
+.reloj-big{font-size:48px;font-weight:600;color:var(--blue-900);font-family:'DM Mono',monospace;text-align:center;letter-spacing:-2px;margin:16px 0 4px;}
+.fecha-sub{font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:20px;}
+.chip-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0;}
+.chip{padding:6px 16px;border-radius:20px;font-size:12px;font-weight:500;}
+.chip-in{background:var(--success-bg);color:var(--success);}
+.chip-out{background:var(--danger-bg);color:var(--danger);}
+.chip-no{background:var(--bg);color:var(--text-muted);border:1px solid var(--border);}
+.geo-msg{font-size:12px;text-align:center;padding:7px 12px;border-radius:8px;margin:8px 0;}
+.geo-ok{background:var(--success-bg);color:var(--success);}
+.geo-err{background:var(--danger-bg);color:var(--danger);}
+.btn-fichar{display:block;margin:0 auto;padding:13px 36px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.bf-in{background:var(--success-bg);color:var(--success);border:1.5px solid #b7dfc8;}
+.bf-in:hover{background:#d0f0e0;}
+.bf-out{background:var(--danger-bg);color:var(--danger);border:1.5px solid #f5c6c2;}
+.bf-out:hover{background:#fbd0ce;}
+.fmsg{text-align:center;font-size:12.5px;margin-top:10px;min-height:18px;}
+.fmsg.ok{color:var(--success);}
+.fmsg.err{color:var(--danger);}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:13px;}
+.tbl th{text-align:left;padding:8px 10px;font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--bg);color:var(--text-secondary);}
+.tbl tr:hover td{background:var(--blue-50);}
+.tbl tr:last-child td{border-bottom:none;}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;}
+.badge-p{background:var(--warning-bg);color:var(--warning);}
+.badge-a{background:var(--success-bg);color:var(--success);}
+.badge-r{background:var(--danger-bg);color:var(--danger);}
+
+/* FORM */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.btn-primary{background:var(--blue-600);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;width:100%;margin-top:4px;}
+.btn-primary:hover{background:var(--blue-700);}
+
+/* VACACIONES */
+.vac-stat-row{display:flex;gap:12px;margin-bottom:16px;}
+.vac-stat{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;}
+.vac-stat .n{font-size:28px;font-weight:600;font-family:'DM Mono',monospace;color:var(--blue-900);}
+.vac-stat .n.green{color:var(--success);}
+.vac-stat .n.amber{color:#b05e00;}
+.vac-stat .t{font-size:11px;color:var(--text-muted);margin-top:3px;}
+
+/* EMP ROW */
+.emp-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;transition:background .15s;}
+.emp-row:hover{background:var(--bg);}
+.emp-av{width:36px;height:36px;border-radius:50%;background:var(--blue-100);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--blue-800);flex-shrink:0;}
+.emp-name{font-size:13px;font-weight:500;color:var(--blue-900);}
+.emp-meta{font-size:11.5px;color:var(--text-muted);}
+
+/* PERFIL */
+.perfil-header{background:var(--navy);border-radius:12px;padding:20px 24px;color:#fff;display:flex;align-items:center;gap:16px;margin-bottom:16px;}
+.perfil-av-lg{width:52px;height:52px;border-radius:50%;background:var(--blue-600);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;color:var(--blue-100);}
+.perfil-nombre{font-size:17px;font-weight:600;}
+.perfil-puesto{font-size:12px;color:var(--blue-300);margin-top:3px;}
+.prow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bg);font-size:13px;}
+.prow:last-child{border-bottom:none;}
+.prow .pl{color:var(--text-muted);font-size:12px;}
+
+/* VAC ACTIONS */
+.acc-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:#fff;margin-bottom:8px;}
+.acc-name{font-size:13px;font-weight:500;color:var(--blue-900);}
+.acc-det{font-size:11.5px;color:var(--text-muted);margin-top:2px;}
+.acc-btns{display:flex;gap:6px;margin-left:auto;flex-shrink:0;}
+.bap{padding:6px 12px;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.bap-a{background:var(--success-bg);color:var(--success);}
+.bap-r{background:var(--danger-bg);color:var(--danger);}
+
+.empty-state{text-align:center;padding:32px 20px;color:var(--text-muted);}
+.empty-state i{font-size:36px;color:var(--blue-100);margin-bottom:10px;display:block;}
+.empty-state p{font-size:13px;}
+.loading{text-align:center;color:var(--text-muted);padding:24px;font-size:13px;}
+
+/* RECIBO */
+.rec-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bg);}
+.rec-row:last-child{border-bottom:none;}
+.rec-periodo{font-size:13px;font-weight:500;color:var(--blue-900);}
+.rec-monto{font-size:11.5px;color:var(--text-muted);font-family:'DM Mono',monospace;}
+.btn-link{padding:5px 12px;border:1px solid var(--border);border-radius:7px;font-size:12px;color:var(--blue-700);text-decoration:none;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .15s;}
+.btn-link:hover{border-color:var(--blue-400);background:var(--blue-50);}
+
+.cumple-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bg);font-size:13px;}
+.cumple-row:last-child{border-bottom:none;}
+.notif-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--bg);}
+.notif-item:last-child{border-bottom:none;}
+.notif-item.unread{background:var(--blue-50);margin:0 -4px;padding:12px 4px;border-radius:8px;}
+.notif-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.notif-icon.ok{background:var(--success-bg);color:var(--success);}
+.notif-icon.err{background:var(--danger-bg);color:var(--danger);}
+.notif-icon.info{background:var(--blue-50);color:var(--blue-600);}
+.notif-icon.warn{background:var(--warning-bg);color:var(--warning);}
+.notif-title{font-size:13px;font-weight:500;color:var(--blue-900);}
+.notif-body{font-size:12px;color:var(--text-muted);margin-top:2px;}
+.notif-time{font-size:11px;color:var(--text-muted);margin-top:3px;}
+
+/* MOBILE FALLBACK */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);transition:transform .2s;}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .kpi-grid{grid-template-columns:1fr 1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .topbar{padding:0 16px;}
+  .page-content{padding:16px;}
+  .vac-stat-row{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN EMP -->
+<div id="s-login" class="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-logo-icon">💆</div>
+      <div><div class="login-logo-text">Centro de Estética</div><div class="login-logo-sub">Sistema de RRHH</div></div>
+    </div>
+    <div class="login-title">Bienvenida</div>
+    <div class="login-sub">Ingresá tu PIN personal para acceder</div>
+    <div class="pin-row">
+      <input class="pin-box" type="password" inputmode="numeric" maxlength="1" id="p0">
+      <input class="pin-box" type="password" inputmode="numeric" maxlength="1" id="p1">
+      <input class="pin-box" type="password" inputmode="numeric" maxlength="1" id="p2">
+      <input class="pin-box" type="password" inputmode="numeric" maxlength="1" id="p3">
+    </div>
+    <div id="lerr" class="err-msg"></div>
+    <button class="btn-login" onclick="doLogin()">Ingresar</button>
+    <button class="btn-ghost-login" onclick="showAdmLogin()">Acceso administración</button>
+  </div>
+</div>
+
+<!-- LOGIN ADMIN -->
+<div id="s-adminlogin" style="display:none" class="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-logo-icon" style="background:var(--navy);font-size:18px;">🔐</div>
+      <div><div class="login-logo-text">Administración</div><div class="login-logo-sub">Acceso restringido</div></div>
+    </div>
+    <div class="login-title">Panel Admin</div>
+    <div class="login-sub">Ingresá tu contraseña de administrador</div>
+    <div class="form-group"><label class="form-label">Contraseña</label><input class="form-control" type="password" id="apass" placeholder="••••••••"></div>
+    <div id="aerr" class="err-msg"></div>
+    <button class="btn-login" onclick="doAdminLogin()">Ingresar</button>
+    <button class="btn-ghost-login" onclick="backLogin()">Volver al inicio</button>
+  </div>
+</div>
+
+<!-- PORTAL EMPLEADA -->
+<div id="s-emp" style="display:none" class="layout">
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-text">Centro de Estética</div>
+      <div class="logo-sub">Portal de empleadas</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-label">Principal</div>
+      <div class="nav-item on" onclick="eNav('inicio',this)"><i class="ti ti-home"></i>Inicio</div>
+      <div class="nav-item" onclick="eNav('notificaciones',this)"><i class="ti ti-bell"></i>Notificaciones<span id="badge-notif" style="display:none;background:#e24b4a;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:auto;">0</span></div>
+      <div class="nav-item" onclick="eNav('fichaje',this)"><i class="ti ti-clock"></i>Fichaje</div>
+      <div class="nav-label">Gestión</div>
+      <div class="nav-item" onclick="eNav('vacaciones',this)"><i class="ti ti-beach"></i>Vacaciones</div>
+      <div class="nav-item" onclick="eNav('certificados',this)"><i class="ti ti-file-medical"></i>Certificados</div>
+      <div class="nav-item" onclick="eNav('recibos',this)"><i class="ti ti-receipt"></i>Recibos</div>
+      <div class="nav-label">Mi cuenta</div>
+      <div class="nav-item" onclick="eNav('perfil',this)"><i class="ti ti-user"></i>Mi perfil</div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="user-av" id="emp-av">??</div>
+        <div><div class="user-name" id="emp-name-s">—</div><div class="user-role" id="emp-role-s">—</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <div class="page-title" id="emp-page-title">Inicio</div>
+      <div class="topbar-right">
+        <span class="topbar-date" id="topbar-date"></span>
+        <button class="btn-logout" onclick="doLogout()"><i class="ti ti-logout" style="font-size:14px"></i>Salir</button>
+      </div>
+    </div>
+    <div class="page-content">
+
+      <!-- INICIO -->
+      <div id="ev-inicio" class="view on">
+        <div class="kpi-grid" id="kpi-emp"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="card">
+            <div class="card-title"><i class="ti ti-clock-check"></i>Fichaje de hoy</div>
+            <div class="chip-row" id="chips-inicio"></div>
+            <p id="horario-esp" style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:6px;"></p>
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="ti ti-beach"></i>Mis vacaciones</div>
+            <div class="vac-stat-row" id="vac-inicio-stats"></div>
+            <div id="vac-historial-inicio" style="margin-top:8px;"></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:0;">
+          <div class="card-title"><i class="ti ti-calendar-event"></i>Feriados</div>
+          <div id="feriados-widget-emp"><div class="loading">Cargando...</div></div>
+        </div>
+      </div>
+
+      <!-- NOTIFICACIONES -->
+      <div id="ev-notificaciones" class="view">
+        <div class="card" style="max-width:600px;">
+          <div class="card-title"><i class="ti ti-bell"></i>Mis notificaciones</div>
+          <div id="lista-notifs"><div class="loading">Cargando...</div></div>
+        </div>
+      </div>
+
+      <!-- FICHAJE -->
+      <div id="ev-fichaje" class="view">
+        <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:16px;">
+          <div class="card" style="text-align:center;">
+            <div class="card-title" style="justify-content:center;"><i class="ti ti-clock"></i>Reloj</div>
+            <div class="reloj-big" id="reloj">00:00:00</div>
+            <div class="fecha-sub" id="fecha-txt"></div>
+            <div class="chip-row" id="chips-fich"></div>
+            <div id="geo-estado"></div>
+            <button class="btn-fichar bf-in" id="btn-fich" onclick="doFichaje()">Registrar entrada</button>
+            <div class="fmsg" id="fmsg"></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="ti ti-history"></i>Historial de asistencia</div>
+            <div id="hist-fich"><div class="loading">Cargando...</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VACACIONES -->
+      <div id="ev-vacaciones" class="view">
+        <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:16px;">
+          <div class="card">
+            <div class="card-title"><i class="ti ti-beach"></i>Solicitar vacaciones</div>
+            <div class="vac-stat-row" id="vac-form-stats"></div>
+            <div class="form-group"><label class="form-label">Fecha desde</label><input class="form-control" type="date" id="vd"></div>
+            <div class="form-group"><label class="form-label">Fecha hasta</label><input class="form-control" type="date" id="vh"></div>
+            <div class="form-group"><label class="form-label">Nota (opcional)</label><textarea class="form-control" id="vn" rows="2" style="resize:none;"></textarea></div>
+            <button class="btn-primary" onclick="pedirVac()">Enviar solicitud</button>
+            <div class="fmsg" id="vmsg" style="margin-top:8px;"></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="ti ti-list"></i>Mis solicitudes</div>
+            <div class="vac-stat-row" id="vac-resumen-full" style="margin-bottom:12px;"></div>
+            <div id="lista-vac"><div class="loading">Cargando...</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERTIFICADOS -->
+      <div id="ev-certificados" class="view">
+        <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:16px;">
+          <div class="card">
+            <div class="card-title"><i class="ti ti-file-medical"></i>Subir certificado médico</div>
+            <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px;">Sacá una foto del certificado en el momento que te lo dan y cargalo acá.</p>
+            <div class="form-group"><label class="form-label">Fecha del certificado</label><input class="form-control" type="date" id="cf"></div>
+            <div class="form-group"><label class="form-label">Tipo</label>
+              <select class="form-control" id="ct">
+                <option>Médico general</option><option>Especialista</option>
+                <option>Odontológico</option><option>Psicológico</option>
+                <option>Urgencia / guardia</option><option>Otro</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="form-label">Descripción</label><textarea class="form-control" id="cd" rows="2" placeholder="Ej: reposo 2 días por angina..." style="resize:none;"></textarea></div>
+            <div class="form-group">
+              <label class="form-label">Foto del certificado</label>
+              <div id="foto-preview" style="display:none;margin-bottom:8px;">
+                <img id="cert-img-preview" style="width:100%;border-radius:8px;border:1px solid var(--border);max-height:200px;object-fit:contain;" />
+                <button onclick="quitarFoto()" style="margin-top:6px;width:100%;padding:6px;border:1px solid var(--border);border-radius:7px;background:#fff;font-size:12px;cursor:pointer;color:var(--danger);font-family:DM Sans,sans-serif;">✕ Quitar foto</button>
+              </div>
+              <div id="foto-btns">
+                <button onclick="document.getElementById('cert-camara').click()" style="width:100%;padding:11px;border:1.5px dashed var(--blue-300);border-radius:9px;background:var(--blue-50);color:var(--blue-700);font-size:13px;font-weight:500;cursor:pointer;margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:DM Sans,sans-serif;">
+                  <i class="ti ti-camera" style="font-size:16px"></i> Sacar foto con la cámara
+                </button>
+                <button onclick="document.getElementById('cert-archivo').click()" style="width:100%;padding:11px;border:1.5px dashed var(--border);border-radius:9px;background:#fff;color:var(--text-secondary);font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:DM Sans,sans-serif;">
+                  <i class="ti ti-upload" style="font-size:16px"></i> Subir foto o PDF (compu o celular)
+                </button>
+              </div>
+              <input type="file" id="cert-camara" accept="image/*" capture="environment" style="display:none" onchange="previsualizarFoto(this)">
+              <input type="file" id="cert-archivo" accept="image/*,application/pdf" style="display:none" onchange="previsualizarFoto(this)">
+            </div>
+            <button class="btn-primary" onclick="enviarCert()" id="btn-enviar-cert">Registrar certificado</button>
+            <div class="fmsg" id="cmsg" style="margin-top:8px;"></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="ti ti-list"></i>Mis certificados</div>
+            <div id="lista-cert"><div class="loading">Cargando...</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECIBOS -->
+      <div id="ev-recibos" class="view">
+        <div class="card">
+          <div class="card-title"><i class="ti ti-receipt"></i>Mis recibos de sueldo</div>
+          <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:16px;">Los recibos son cargados por la administración. Si falta alguno, contactá a la administración.</p>
+          <div id="lista-rec"><div class="loading">Cargando...</div></div>
+        </div>
+      </div>
+
+      <!-- PERFIL -->
+      <div id="ev-perfil" class="view">
+        <div style="max-width:600px;">
+          <div class="perfil-header" id="perfil-header"></div>
+          <div class="card" id="perfil-card"><div class="loading">Cargando...</div></div>
+          <div class="card" style="margin-top:0;">
+            <div class="card-title"><i class="ti ti-clock-check"></i>Mis horas</div>
+            <div id="saldo-horas-emp"><div class="loading">Cargando...</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PORTAL ADMIN -->
+<div id="s-admin" style="display:none" class="layout">
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-text">Centro de Estética</div>
+      <div class="logo-sub">Panel de administración</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-label">Dashboard</div>
+      <div class="nav-item on" onclick="aNav('resumen',this)"><i class="ti ti-layout-dashboard"></i>Resumen</div>
+      <div class="nav-label">Personal</div>
+      <div class="nav-item" onclick="aNav('empleadas',this)"><i class="ti ti-users"></i>Empleadas</div>
+      <div class="nav-item" onclick="aNav('asistencia',this)"><i class="ti ti-clock"></i>Asistencia hoy</div>
+      <div class="nav-label">Gestión</div>
+      <div class="nav-item" onclick="aNav('vacpend',this)"><i class="ti ti-beach"></i>Vacaciones<span id="badge-vac" style="display:none;background:#e24b4a;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:auto;">0</span></div>
+      <div class="nav-item" onclick="aNav('certificados_adm',this)"><i class="ti ti-file-medical"></i>Certificados</div>
+      <div class="nav-item" onclick="aNav('subir',this)"><i class="ti ti-receipt"></i>Recibos</div>
+      <div class="nav-item" onclick="aNav('agregar',this)"><i class="ti ti-user-plus"></i>Agregar empleada</div>
+      <div class="nav-item" onclick="aNav('sabados',this)"><i class="ti ti-calendar-week"></i>Sábados</div>
+      <div class="nav-item" onclick="aNav('horas',this)"><i class="ti ti-clock-dollar"></i>Banco de horas</div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="user-av" style="background:#3a506b;color:#b0c4de;font-size:11px;">ADM</div>
+        <div><div class="user-name">Administración</div><div class="user-role">Acceso completo</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <div class="page-title" id="adm-page-title">Resumen</div>
+      <div class="topbar-right">
+        <span class="topbar-date" id="topbar-date-adm"></span>
+        <button class="btn-logout" onclick="doLogout()"><i class="ti ti-logout" style="font-size:14px"></i>Salir</button>
+      </div>
+    </div>
+    <div class="page-content">
+
+      <!-- RESUMEN -->
+      <div id="av-resumen" class="view on">
+        <div class="kpi-grid" id="kpi-adm"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="card">
+            <div class="card-title"><i class="ti ti-cake"></i>Cumpleaños este mes</div>
+            <div id="cumples-adm"><div class="loading">Cargando...</div></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="ti ti-file-medical"></i>Certificados recientes</div>
+            <div id="cert-rec-adm"><div class="loading">Cargando...</div></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:0;">
+          <div class="card-title"><i class="ti ti-calendar-event"></i>Feriados 2026</div>
+          <div id="feriados-widget"><div class="loading">Cargando...</div></div>
+        </div>
+      </div>
+
+      <!-- EMPLEADAS -->
+      <div id="av-empleadas" class="view">
+        <div class="card">
+          <div class="card-title"><i class="ti ti-users"></i>Todo el personal</div>
+          <div id="lista-emp-adm"><div class="loading">Cargando...</div></div>
+        </div>
+      </div>
+
+      <!-- ASISTENCIA HOY -->
+      <div id="av-asistencia" class="view">
+        <div class="card">
+          <div class="card-title"><i class="ti ti-clock-check"></i>Fichajes de hoy</div>
+          <div id="fich-hoy-adm"><div class="loading">Cargando...</div></div>
+        </div>
+      </div>
+
+      <!-- VACACIONES ADMIN -->
+      <div id="av-vacpend" class="view">
+        <div class="card">
+          <div class="card-title"><i class="ti ti-clock-exclamation"></i>Solicitudes pendientes</div>
+          <div id="vac-pend-adm"><div class="loading">Cargando...</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><i class="ti ti-list"></i>Todas las vacaciones</div>
+          <div id="vac-todas-adm"><div class="loading">Cargando...</div></div>
+        </div>
+      </div>
+
+      <!-- CERTIFICADOS ADMIN -->
+      <div id="av-certificados_adm" class="view">
+        <div class="card">
+          <div class="card-title"><i class="ti ti-file-medical"></i>Todos los certificados</div>
+          <div id="certs-adm"><div class="loading">Cargando...</div></div>
+        </div>
+      </div>
+
+      <!-- RECIBOS ADMIN -->
+      <div id="av-subir" class="view">
+        <div class="card" style="max-width:520px;">
+          <div class="card-title"><i class="ti ti-upload"></i>Subir recibo de sueldo</div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">PIN empleada</label><input class="form-control" type="text" id="r-pin" placeholder="PIN de 4 dígitos"></div>
+            <div class="form-group"><label class="form-label">Nombre empleada</label><input class="form-control" type="text" id="r-nom"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Período</label><input class="form-control" type="text" id="r-per" placeholder="Ej: Mayo 2025"></div>
+            <div class="form-group"><label class="form-label">Monto neto</label><input class="form-control" type="text" id="r-mon" placeholder="Ej: $350.000"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Link al archivo (Google Drive)</label><input class="form-control" type="url" id="r-lnk" placeholder="https://..."></div>
+          <button class="btn-primary" onclick="subirRecibo()">Subir recibo</button>
+          <div class="fmsg" id="rmsg" style="margin-top:8px;"></div>
+        </div>
+      </div>
+
+      <!-- AGREGAR EMPLEADA -->
+      <div id="av-agregar" class="view">
+        <div class="card" style="max-width:600px;">
+          <div class="card-title"><i class="ti ti-user-plus"></i>Agregar nueva empleada</div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Nombre completo *</label><input class="form-control" type="text" id="ne-nom"></div>
+            <div class="form-group"><label class="form-label">Puesto</label><input class="form-control" type="text" id="ne-pue" placeholder="Ej: Esteticista"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">PIN (4 dígitos) *</label><input class="form-control" type="text" id="ne-pin" maxlength="4" placeholder="1234"></div>
+            <div class="form-group"><label class="form-label">DNI</label><input class="form-control" type="text" id="ne-dni"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Fecha de nacimiento</label><input class="form-control" type="date" id="ne-fnac"></div>
+            <div class="form-group"><label class="form-label">Fecha de ingreso</label><input class="form-control" type="date" id="ne-fing"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email</label><input class="form-control" type="email" id="ne-mail"></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Teléfono</label><input class="form-control" type="text" id="ne-tel"></div>
+            <div class="form-group"><label class="form-label">Teléfono familiar / emergencia</label><input class="form-control" type="text" id="ne-telf"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Domicilio</label><input class="form-control" type="text" id="ne-dom"></div>
+          <div class="form-group">
+            <label class="form-label">Horarios por día</label>
+            <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:4px;">
+              <tr style="background:var(--bg);">
+                <th style="padding:7px 10px;text-align:left;font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--border);">Día</th>
+                <th style="padding:7px 10px;text-align:left;font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--border);">Entrada</th>
+                <th style="padding:7px 10px;text-align:left;font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--border);">Salida</th>
+                <th style="padding:7px 10px;text-align:center;font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--border);">Trabaja</th>
+              </tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid var(--bg);font-weight:500;font-size:13px;">Lunes</td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="h-lun-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="h-lun-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg);text-align:center"><input type="checkbox" id="h-lun-t" checked style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid var(--bg);font-weight:500;font-size:13px;">Martes</td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="h-mar-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="h-mar-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg);text-align:center"><input type="checkbox" id="h-mar-t" checked style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid var(--bg);font-weight:500;font-size:13px;">Miércoles</td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="h-mie-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="h-mie-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg);text-align:center"><input type="checkbox" id="h-mie-t" checked style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid var(--bg);font-weight:500;font-size:13px;">Jueves</td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="h-jue-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="h-jue-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg);text-align:center"><input type="checkbox" id="h-jue-t" checked style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+              <tr><td style="padding:6px 10px;border-bottom:1px solid var(--bg);font-weight:500;font-size:13px;">Viernes</td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="h-vie-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="h-vie-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg);text-align:center"><input type="checkbox" id="h-vie-t" checked style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+              <tr><td style="padding:6px 10px;font-weight:500;font-size:13px;">Sábado</td><td style="padding:4px 6px;"><input class="form-control" type="time" id="h-sab-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;"><input class="form-control" type="time" id="h-sab-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;text-align:center"><input type="checkbox" id="h-sab-t" style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+            </table>
+          </div>
+          <div class="form-group"><label class="form-label">Grupo sábados</label>
+            <select class="form-control" id="ne-sab">
+              <option value="NO">No trabaja sábados</option>
+              <option value="A">Grupo A (trabaja el sábado 20/06)</option>
+              <option value="B">Grupo B (trabaja el sábado 27/06)</option>
+              <option value="EVENTUAL">Eventual (doctoras u otros)</option>
+            </select>
+          </div>
+          <button class="btn-primary" onclick="agregarEmp()">Agregar empleada</button>
+          <div class="fmsg" id="emsg" style="margin-top:8px;"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const CENTRO={lat:-34.5931,lng:-58.3893,radio:150};
+const ADMIN_PASS="admin1234";
+
+function dbGet(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}}
+function dbSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function getEmpleadas(){return dbGet("rrhh_empleadas")||[];}
+function saveEmpleadas(e){dbSet("rrhh_empleadas",e);}
+function getFichajes(){return dbGet("rrhh_fichajes")||[];}
+function saveFichajes(f){dbSet("rrhh_fichajes",f);}
+function getVacaciones(){return dbGet("rrhh_vacaciones")||[];}
+function saveVacaciones(v){dbSet("rrhh_vacaciones",v);}
+function getCertificados(){return dbGet("rrhh_certificados")||[];}
+function saveCertificados(c){dbSet("rrhh_certificados",c);}
+function getRecibos(){return dbGet("rrhh_recibos")||[];}
+function getNotificaciones(pin){return dbGet("rrhh_notif_"+pin)||[];}
+function saveNotificaciones(pin,n){dbSet("rrhh_notif_"+pin,n);}
+function agregarNotif(pin,tipo,titulo,cuerpo){
+  const notifs=getNotificaciones(pin);
+  notifs.unshift({id:Date.now(),tipo,titulo,cuerpo,fecha:new Date().toISOString(),leida:false});
+  saveNotificaciones(pin,notifs.slice(0,50));
+}
+function marcarLeidas(pin){
+  const notifs=getNotificaciones(pin).map(n=>({...n,leida:true}));
+  saveNotificaciones(pin,notifs);
+}
+function saveRecibos(r){dbSet("rrhh_recibos",r);}
+
+function calcDist(la1,lo1,la2,lo2){const R=6371000,dL=(la2-la1)*Math.PI/180,dO=(lo2-lo1)*Math.PI/180;const a=Math.sin(dL/2)**2+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dO/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
+function verificarGeo(){return new Promise((res,rej)=>{if(!navigator.geolocation){rej("GPS no disponible en este dispositivo");return;}navigator.geolocation.getCurrentPosition(p=>{const d=calcDist(p.coords.latitude,p.coords.longitude,CENTRO.lat,CENTRO.lng);d<=CENTRO.radio?res(Math.round(d)):rej(`Estás a ${Math.round(d)}m del centro. Solo se puede fichar desde las instalaciones (radio: ${CENTRO.radio}m).`);},e=>rej(e.code===1?"Necesitás permitir el acceso a la ubicación para poder fichar":"No se pudo obtener tu ubicación. Verificá que el GPS esté activo."),{enableHighAccuracy:true,timeout:10000,maximumAge:0});});}
+
+function calcAniosAntig(fi){if(!fi)return 0;return Math.floor((new Date()-new Date(fi))/(365.25*24*3600*1000));}
+function calcAntig(fi){if(!fi)return"—";const a=calcAniosAntig(fi),m=Math.floor(((new Date()-new Date(fi))%(365.25*24*3600*1000))/(30.44*24*3600*1000));return a===0?m+" mes"+(m!==1?"es":""):a+" año"+(a!==1?"s":"")+(m>0?" y "+m+"m":"");}
+function diasVac(fi){const a=calcAniosAntig(fi);return a<5?14:a<10?21:a<20?28:35;}
+function hoy(){const d=new Date();return[String(d.getDate()).padStart(2,"0"),String(d.getMonth()+1).padStart(2,"0"),d.getFullYear()].join("/");}
+function iniciales(n){return n?n.split(" ").map(x=>x[0]||"").join("").slice(0,2).toUpperCase():"??";}
+function fmtFecha(s){if(!s)return"—";const d=new Date(s);return isNaN(d)?String(s):d.toLocaleDateString("es-AR");}
+function diasHab(d1,d2){const a=new Date(d1),b=new Date(d2);let c=0,cur=new Date(a);while(cur<=b){if(cur.getDay()!==0)c++;cur.setDate(cur.getDate()+1);}return c;}
+function getVacUsados(pin){
+  const yr=new Date().getFullYear();
+  const hoy=new Date();hoy.setHours(0,0,0,0);
+  return getVacaciones().filter(v=>{
+    if(v.pin!==pin)return false;
+    if(!v.desde)return false;
+    const yr2=v.desde.split("/")[2];
+    if(String(yr2)!==String(yr))return false;
+    // Contar si está aprobada O si la fecha ya pasó (auto-descuento)
+    if(v.estado==="Aprobada")return true;
+    // Auto-descuento: si la fecha de fin pasó y estaba pendiente, marcar como usada
+    if(v.estado==="Pendiente"&&v.hasta){
+      const parts=v.hasta.split("/");
+      const fechaFin=new Date(parts[2],parts[1]-1,parts[0]);
+      if(fechaFin<hoy){
+        // Actualizar estado automáticamente
+        const vacs=getVacaciones();
+        const idx=vacs.findIndex(x=>x.id===v.id);
+        if(idx>=0){vacs[idx].estado="Usada";saveVacaciones(vacs);}
+        return true;
+      }
+    }
+    if(v.estado==="Usada")return true;
+    return false;
+  }).reduce((s,v)=>s+(Number(v.dias)||0),0);
+}
+function getFichajeHoy(pin){const hh=hoy();return getFichajes().find(f=>f.pin===pin&&f.fecha===hh)||null;}
+
+let sesion={};
+
+document.querySelectorAll(".pin-box").forEach((inp,i,arr)=>{
+  inp.addEventListener("input",()=>{if(inp.value&&i<arr.length-1)arr[i+1].focus();if(inp.value.length>1)inp.value=inp.value.slice(-1);});
+  inp.addEventListener("keydown",e=>{if(e.key==="Backspace"&&!inp.value&&i>0)arr[i-1].focus();if(e.key==="Enter")doLogin();});
+});
+function getPin(){return[0,1,2,3].map(i=>document.getElementById("p"+i).value).join("");}
+function showOnly(id){["s-login","s-adminlogin","s-emp","s-admin"].forEach(s=>{document.getElementById(s).style.display="none";});document.getElementById(id).style.display="flex";}
+function show(id){document.getElementById(id).style.display="flex";}
+function hide(id){document.getElementById(id).style.display="none";}
+
+function doLogin(){
+  const pin=getPin();
+  if(pin.length<4){document.getElementById("lerr").textContent="Ingresá tu PIN de 4 dígitos";return;}
+  document.getElementById("lerr").textContent="Verificando...";
+  const emp=getEmpleadas().find(e=>String(e.pin)===pin);
+  if(emp){sesion={tipo:"emp",pin,emp};initEmp();}
+  else{document.getElementById("lerr").textContent="PIN incorrecto. Intentá de nuevo.";[0,1,2,3].forEach(i=>document.getElementById("p"+i).value="");document.getElementById("p0").focus();}
+}
+function showAdmLogin(){document.getElementById("s-login").style.display="none";document.getElementById("s-adminlogin").style.display="flex";}
+function backLogin(){document.getElementById("s-adminlogin").style.display="none";document.getElementById("s-login").style.display="flex";}
+function doAdminLogin(){const p=document.getElementById("apass").value;if(p===ADMIN_PASS){sesion={tipo:"admin"};initAdmin();}else document.getElementById("aerr").textContent="Contraseña incorrecta.";}
+function doLogout(){sesion={};[0,1,2,3].forEach(i=>document.getElementById("p"+i).value="");document.getElementById("s-emp").style.display="none";document.getElementById("s-admin").style.display="none";document.getElementById("s-login").style.display="flex";}
+
+// RELOJ
+setInterval(()=>{
+  const n=new Date(),dias=["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"],mes=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  const ts=[n.getHours(),n.getMinutes(),n.getSeconds()].map(x=>String(x).padStart(2,"0")).join(":");
+  const ds=dias[n.getDay()]+" "+n.getDate()+" de "+mes[n.getMonth()]+" "+n.getFullYear();
+  const r=document.getElementById("reloj");if(r)r.textContent=ts;
+  const ft=document.getElementById("fecha-txt");if(ft)ft.textContent=ds;
+  ["topbar-date","topbar-date-adm"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=ts;});
+},1000);
+
+// EMP
+function initEmp(){
+  document.getElementById("s-login").style.display="none";
+  document.getElementById("s-adminlogin").style.display="none";
+  document.getElementById("s-emp").style.display="flex";
+  const ini=iniciales(sesion.emp.nombre);
+  document.getElementById("emp-av").textContent=ini;
+  document.getElementById("emp-name-s").textContent=sesion.emp.nombre;
+  document.getElementById("emp-role-s").textContent=sesion.emp.puesto||"—";
+  loadEmpInicio();loadHistFich();loadVacEmp();loadCertEmp();loadRecibosEmp();loadPerfil();
+}
+
+function actualizarBadgeNotif(){
+  const notifs=getNotificaciones(sesion.pin);
+  const noLeidas=notifs.filter(n=>!n.leida).length;
+  const badge=document.getElementById("badge-notif");
+  if(badge){badge.style.display=noLeidas>0?"inline":"none";badge.textContent=noLeidas;}
+}
+function eNav(v,el){
+  document.querySelectorAll("#s-emp .nav-item").forEach(n=>n.classList.remove("on"));
+  el.classList.add("on");
+  document.querySelectorAll("#s-emp .view").forEach(x=>x.classList.remove("on"));
+  document.getElementById("ev-"+v).classList.add("on");
+  const titles={inicio:"Inicio",fichaje:"Fichaje",vacaciones:"Vacaciones",certificados:"Certificados médicos",recibos:"Recibos de sueldo",perfil:"Mi perfil"};
+  document.getElementById("emp-page-title").textContent=titles[v]||v;
+  if(v==="fichaje")loadFichajeUI();
+  if(v==="notificaciones")loadNotificaciones();
+}
+
+function loadEmpInicio(){
+  const emp=sesion.emp,dv=diasVac(emp.fechaIngreso),us=getVacUsados(sesion.pin),fh=getFichajeHoy(sesion.pin);
+  const diasN=["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+  const diaHoy=diasN[new Date().getDay()];
+  const hHoy=emp.horarios&&emp.horarios[diaHoy]?emp.horarios[diaHoy]:{entrada:emp.horaEntrada||"",salida:emp.horaSalida||"",trabaja:true};
+  document.getElementById("kpi-emp").innerHTML=`
+    <div class="kpi-card green"><div class="kpi-icon" style="background:var(--success-bg);color:var(--success)"><i class="ti ti-beach"></i></div><div class="kpi-label">Días disponibles</div><div class="kpi-val green">${dv-us}</div><div class="kpi-sub">Vacaciones este año</div></div>
+    <div class="kpi-card amber"><div class="kpi-icon" style="background:#fff0dd;color:#e07b00"><i class="ti ti-calendar-check"></i></div><div class="kpi-label">Días usados</div><div class="kpi-val amber">${us}</div><div class="kpi-sub">En ${new Date().getFullYear()}</div></div>
+    <div class="kpi-card"><div class="kpi-icon"><i class="ti ti-clock"></i></div><div class="kpi-label">Entrada esperada</div><div class="kpi-val" style="font-size:20px;margin-top:4px;">${hHoy.entrada||"—"}</div><div class="kpi-sub">${hHoy.trabaja?"Hoy trabaja":"Hoy no trabaja"}</div></div>
+    <div class="kpi-card"><div class="kpi-icon"><i class="ti ti-clock-off"></i></div><div class="kpi-label">Salida esperada</div><div class="kpi-val" style="font-size:20px;margin-top:4px;">${hHoy.salida||"—"}</div><div class="kpi-sub">Horario de hoy</div></div>`;
+  const chips=document.getElementById("chips-inicio");
+  chips.innerHTML=fh&&fh.entrada?`<span class="chip chip-in"><i class="ti ti-login" style="font-size:12px"></i> Entrada: ${fh.entrada}</span><span class="chip ${fh.salida?"chip-out":"chip-no"}">${fh.salida?"<i class='ti ti-logout' style='font-size:12px'></i> Salida: "+fh.salida:"Sin salida aún"}</span>`:`<span class="chip chip-no">Sin fichaje registrado hoy</span>`;
+  document.getElementById("vac-inicio-stats").innerHTML=`<div class="vac-stat"><div class="n green">${dv-us}</div><div class="t">Disponibles</div></div><div class="vac-stat"><div class="n amber">${us}</div><div class="t">Usados</div></div>`;
+  document.getElementById("vac-form-stats").innerHTML=`<div class="vac-stat"><div class="n green">${dv-us}</div><div class="t">Disponibles</div></div><div class="vac-stat"><div class="n amber">${us}</div><div class="t">Usados</div></div><div class="vac-stat"><div class="n">${dv}</div><div class="t">Total año</div></div>`;
+  // Historial compacto en inicio
+  const vacHist=getVacaciones().filter(v=>v.pin===sesion.pin&&(v.estado==="Aprobada"||v.estado==="Usada")).slice(-3).reverse();
+  const histEl=document.getElementById("vac-historial-inicio");
+  if(histEl){
+    if(!vacHist.length){histEl.innerHTML="";}
+    else{histEl.innerHTML='<div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;font-weight:600;">Últimas vacaciones</div>'+vacHist.map(v=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bg);font-size:12px;"><span style="color:var(--text-secondary)">${v.desde} al ${v.hasta}</span><span style="color:var(--text-muted)">${v.dias} días</span></div>`).join("");}
+  }
+  // Resumen en panel vacaciones
+  const vacResEl=document.getElementById("vac-resumen-full");
+  if(vacResEl){
+    const vacPorAnio={};
+    getVacaciones().filter(v=>v.pin===sesion.pin&&(v.estado==="Aprobada"||v.estado==="Usada")).forEach(v=>{
+      const yr2=v.desde?v.desde.split("/")[2]:"?";
+      vacPorAnio[yr2]=(vacPorAnio[yr2]||0)+(Number(v.dias)||0);
+    });
+    const resHTML=Object.entries(vacPorAnio).sort((a,b)=>b[0]-a[0]).map(([yr2,dias])=>`<div class="vac-stat"><div class="n" style="font-size:20px">${dias}</div><div class="t">Días usados ${yr2}</div></div>`).join("");
+    vacResEl.innerHTML=resHTML||"";
+  }
+}
+
+function loadFichajeUI(){
+  const fh=getFichajeHoy(sesion.pin),btn=document.getElementById("btn-fich"),chips=document.getElementById("chips-fich");
+  chips.innerHTML=fh&&fh.entrada?`<span class="chip chip-in"><i class="ti ti-login" style="font-size:12px"></i> ${fh.entrada}</span><span class="chip ${fh.salida?"chip-out":"chip-no"}">${fh.salida?"<i class='ti ti-logout' style='font-size:12px'></i> "+fh.salida:"Sin salida"}</span>`:`<span class="chip chip-no">Sin fichaje hoy</span>`;
+  if(fh&&fh.entrada&&fh.salida){btn.style.display="none";document.getElementById("fmsg").textContent="Jornada completa — "+fh.horas+" hs trabajadas";document.getElementById("fmsg").className="fmsg ok";}
+  else if(fh&&fh.entrada){btn.textContent="Registrar salida";btn.className="btn-fichar bf-out";btn.style.display="block";}
+  else{btn.textContent="Registrar entrada";btn.className="btn-fichar bf-in";btn.style.display="block";}
+}
+
+let fichPend=false;
+async function doFichaje(){
+  if(fichPend)return;fichPend=true;
+  const btn=document.getElementById("btn-fich"),msg=document.getElementById("fmsg"),geo=document.getElementById("geo-estado");
+  const esEntrada=btn.textContent.includes("entrada");
+  btn.disabled=true;btn.textContent="Verificando ubicación...";msg.textContent="";geo.innerHTML="";
+  try{
+    const dist=await verificarGeo();
+    geo.innerHTML=`<div class="geo-msg geo-ok"><i class="ti ti-map-pin" style="font-size:13px;vertical-align:-1px"></i> Ubicación verificada — ${dist}m del centro</div>`;
+    const n=new Date(),hora=[n.getHours(),n.getMinutes()].map(x=>String(x).padStart(2,"0")).join(":");
+    const fichs=getFichajes();
+    if(esEntrada){
+      fichs.push({id:Date.now(),pin:sesion.pin,nombre:sesion.emp.nombre,fecha:hoy(),entrada:hora,salida:"",horas:""});
+      saveFichajes(fichs);msg.textContent="Entrada registrada a las "+hora;msg.className="fmsg ok";
+    }else{
+      const idx=fichs.findIndex(f=>f.pin===sesion.pin&&f.fecha===hoy()&&f.entrada&&!f.salida);
+      if(idx>=0){
+        const[hE,mE]=fichs[idx].entrada.split(":").map(Number),[hS,mS]=hora.split(":").map(Number);
+        const mins=(hS*60+mS)-(hE*60+mE),hTrab=Math.floor(mins/60)+":"+String(mins%60).padStart(2,"0");
+        fichs[idx].salida=hora;fichs[idx].horas=hTrab;saveFichajes(fichs);
+        msg.textContent="Salida registrada a las "+hora+" — "+hTrab+" hs trabajadas";msg.className="fmsg ok";
+      }else{msg.textContent="No encontré tu entrada de hoy. Contactá administración.";msg.className="fmsg err";}
+    }
+    setTimeout(()=>{loadFichajeUI();loadHistFich();},600);
+  }catch(e){geo.innerHTML=`<div class="geo-msg geo-err"><i class="ti ti-map-pin-off" style="font-size:13px;vertical-align:-1px"></i> ${e}</div>`;btn.textContent=esEntrada?"Registrar entrada":"Registrar salida";btn.disabled=false;}
+  fichPend=false;
+}
+
+function loadHistFich(){
+  const regs=getFichajes().filter(f=>f.pin===sesion.pin).slice(-40).reverse();
+  const cont=document.getElementById("hist-fich");if(!cont)return;
+  if(!regs.length){cont.innerHTML=`<div class="empty-state"><i class="ti ti-history"></i><p>Sin registros aún</p></div>`;return;}
+  let h='<table class="tbl"><tr><th>Fecha</th><th>Entrada</th><th>Salida</th><th>Horas</th></tr>';
+  regs.forEach(r=>h+=`<tr><td>${r.fecha}</td><td>${r.entrada||"—"}</td><td>${r.salida||"—"}</td><td style="font-family:'DM Mono',monospace">${r.horas||"—"}</td></tr>`);
+  cont.innerHTML=h+"</table>";
+}
+
+function loadVacEmp(){
+  const vacs=getVacaciones().filter(v=>v.pin===sesion.pin).reverse();
+  const cont=document.getElementById("lista-vac");
+  if(!vacs.length){cont.innerHTML=`<div class="empty-state"><i class="ti ti-beach"></i><p>Sin solicitudes aún</p></div>`;return;}
+  let h='<table class="tbl"><tr><th>Desde</th><th>Hasta</th><th>Días</th><th>Estado</th><th>Nota</th></tr>';
+  vacs.forEach(v=>{
+    const estBadge=v.estado==="Aprobada"||v.estado==="Usada"?"a":v.estado==="Pendiente"?"p":"r";
+    const estLabel=v.estado==="Usada"?"✓ Usados":v.estado==="Aprobada"?"✓ Aprobada":v.estado==="Pendiente"?"⏳ En revisión":"✗ Rechazada";
+    h+=`<tr><td>${v.desde}</td><td>${v.hasta}</td><td>${v.dias}</td><td><span class="badge badge-${estBadge}">${estLabel}</span></td><td style="font-size:12px;color:var(--text-muted)">${v.nota||"—"}</td></tr>`;
+  });
+  cont.innerHTML=h+"</table>";
+}
+
+function pedirVac(){
+  const d=document.getElementById("vd").value,h=document.getElementById("vh").value,n=document.getElementById("vn").value,msg=document.getElementById("vmsg");
+  if(!d||!h){msg.textContent="Completá las fechas de inicio y fin";msg.className="fmsg err";return;}
+  const df=d.split("-").reverse().join("/"),hf=h.split("-").reverse().join("/"),dias=diasHab(d,h);
+  const dv2=diasVac(sesion.emp.fechaIngreso),us=getVacUsados(sesion.pin);
+  if(dias>dv2-us){msg.textContent=`Solicitás ${dias} días hábiles pero tenés ${dv2-us} disponibles`;msg.className="fmsg err";return;}
+  const vacs=getVacaciones();
+  vacs.push({id:Date.now(),pin:sesion.pin,nombre:sesion.emp.nombre,desde:df,hasta:hf,dias,estado:"Pendiente",fecha:new Date().toISOString(),nota:n});
+  saveVacaciones(vacs);msg.textContent="Solicitud enviada correctamente. La administración la revisará pronto.";msg.className="fmsg ok";
+  agregarNotif(sesion.pin,"info","Solicitud enviada","Tu solicitud de vacaciones del "+df+" al "+hf+" ("+dias+" días) fue enviada y está en revisión.");
+  actualizarBadgeNotif();
+  loadVacEmp();loadEmpInicio();
+}
+
+function loadCertEmp(){
+  const certs=getCertificados().filter(c=>c.pin===sesion.pin).reverse();
+  const cont=document.getElementById("lista-cert");
+  if(!certs.length){cont.innerHTML=`<div class="empty-state"><i class="ti ti-file-medical"></i><p>Sin certificados registrados</p></div>`;return;}
+  let h="";
+  certs.forEach(c=>{
+    h+=`<div style="border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--blue-900)">${c.tipo}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${c.fecha}</div>
+        </div>
+        ${c.tieneImagen?'<span class="badge badge-a" style="font-size:11px;">📎 Con foto</span>':'<span style="font-size:11px;color:var(--text-muted)">Sin foto</span>'}
+      </div>
+      <div style="font-size:12.5px;color:var(--text-secondary);margin-bottom:8px;">${c.desc}</div>
+      ${c.imagen?`<img src="${c.imagen}" style="width:100%;border-radius:8px;border:1px solid var(--border);max-height:180px;object-fit:contain;cursor:pointer;" onclick="verImagenGrande('${c.id}')" title="Tocar para ampliar">`:""}
+    </div>`;
+  });
+  cont.innerHTML=h;
+}
+
+function verImagenGrande(certId){
+  const cert=getCertificados().find(c=>c.id==certId);
+  if(!cert||!cert.imagen)return;
+  const overlay=document.createElement("div");
+  overlay.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;cursor:pointer;";
+  overlay.innerHTML=`<div style="position:relative;max-width:90vw;max-height:90vh;">
+    <img src="${cert.imagen}" style="max-width:100%;max-height:90vh;border-radius:10px;object-fit:contain;">
+    <button onclick="this.parentElement.parentElement.remove()" style="position:absolute;top:-12px;right:-12px;width:30px;height:30px;border-radius:50%;border:none;background:#fff;font-size:16px;cursor:pointer;font-weight:700;">✕</button>
+  </div>`;
+  overlay.onclick=(e)=>{if(e.target===overlay)overlay.remove();};
+  document.body.appendChild(overlay);
+}
+
+function enviarCert(){
+  const f=document.getElementById("cf").value,t=document.getElementById("ct").value,d=document.getElementById("cd").value,msg=document.getElementById("cmsg");
+  if(!f||!d){msg.textContent="Completá la fecha y la descripción";msg.className="fmsg err";return;}
+  const ff=f.split("-").reverse().join("/"),certs=getCertificados();
+  certs.push({id:Date.now(),pin:sesion.pin,nombre:sesion.emp.nombre,fecha:ff,tipo:t,desc:d,cargado:new Date().toISOString()});
+  saveCertificados(certs);msg.textContent="Certificado registrado correctamente";msg.className="fmsg ok";loadCertEmp();
+}
+
+function loadRecibosEmp(){
+  const recs=getRecibos().filter(r=>r.pin===sesion.pin).reverse();
+  const cont=document.getElementById("lista-rec");
+  if(!recs.length){cont.innerHTML=`<div class="empty-state"><i class="ti ti-receipt"></i><p>Aún no hay recibos cargados</p></div>`;return;}
+  let h="";
+  recs.forEach(r=>h+=`<div class="rec-row"><div><div class="rec-periodo">${r.periodo}</div><div class="rec-monto">${r.monto||"—"}</div></div>${r.link?`<a href="${r.link}" target="_blank" class="btn-link"><i class="ti ti-download" style="font-size:13px;vertical-align:-1px"></i> Ver recibo</a>`:`<span style="font-size:12px;color:var(--text-muted)">Sin archivo</span>`}</div>`);
+  cont.innerHTML=h;
+}
+
+function loadNotificaciones(){
+  const notifs=getNotificaciones(sesion.pin);
+  const cont=document.getElementById("lista-notifs");
+  if(!cont)return;
+  marcarLeidas(sesion.pin);
+  actualizarBadgeNotif();
+  if(!notifs.length){cont.innerHTML=`<div class="empty-state"><i class="ti ti-bell-off"></i><p>Sin notificaciones aún</p></div>`;return;}
+  const iconMap={ok:"ti-check",err:"ti-x",info:"ti-info-circle",warn:"ti-clock"};
+  cont.innerHTML=notifs.map(n=>{
+    const d=new Date(n.fecha);
+    const ds=d.toLocaleDateString("es-AR")+" "+d.toLocaleTimeString("es-AR",{hour:"2-digit",minute:"2-digit"});
+    return`<div class="notif-item ${n.leida?"":"unread"}">
+      <div class="notif-icon ${n.tipo}"><i class="ti ${iconMap[n.tipo]||"ti-bell"}"></i></div>
+      <div style="flex:1"><div class="notif-title">${n.titulo}</div><div class="notif-body">${n.cuerpo}</div><div class="notif-time">${ds}</div></div>
+    </div>`;
+  }).join("");
+}
+function loadPerfil(){
+  const emp=sesion.emp,dv=diasVac(emp.fechaIngreso),us=getVacUsados(sesion.pin),ini=iniciales(emp.nombre);
+  document.getElementById("perfil-header").innerHTML=`<div class="perfil-av-lg">${ini}</div><div><div class="perfil-nombre">${emp.nombre}</div><div class="perfil-puesto">${emp.puesto||"—"}</div></div>`;
+  document.getElementById("perfil-card").innerHTML=`
+    <div class="prow"><span class="pl">DNI</span><span>${emp.dni||"—"}</span></div>
+    <div class="prow"><span class="pl">Fecha de nacimiento</span><span>${fmtFecha(emp.fechaNacimiento)}</span></div>
+    <div class="prow"><span class="pl">Email</span><span>${emp.email||"—"}</span></div>
+    <div class="prow"><span class="pl">Teléfono</span><span>${emp.telefono||"—"}</span></div>
+    <div class="prow"><span class="pl">Teléfono familiar</span><span>${emp.telefonoFamiliar||"—"}</span></div>
+    <div class="prow"><span class="pl">Domicilio</span><span>${emp.domicilio||"—"}</span></div>
+    <div class="prow"><span class="pl">Fecha de ingreso</span><span>${fmtFecha(emp.fechaIngreso)}</span></div>
+    <div class="prow"><span class="pl">Antigüedad</span><span>${calcAntig(emp.fechaIngreso)}</span></div>
+    <div class="prow"><span class="pl">Horario</span><span style="font-family:'DM Mono',monospace">${emp.horaEntrada||"—"} — ${emp.horaSalida||"—"}</span></div>
+    <div class="prow"><span class="pl">Horarios</span><span style="text-align:right;font-size:12px">${emp.horarios?Object.entries(emp.horarios).filter(([d,h])=>h.trabaja).map(([d,h])=>`<span style="display:inline-block;margin:2px 4px;background:var(--blue-50);color:var(--blue-700);padding:2px 8px;border-radius:12px;font-size:11px;font-family:DM Mono,monospace">${d.charAt(0).toUpperCase()+d.slice(1,3)} ${h.entrada}–${h.salida}</span>`).join(""):"—"}</span></div>
+    <div class="prow"><span class="pl">Días de vacaciones / año</span><span style="font-weight:600;color:var(--success)">${dv} días (${calcAniosAntig(emp.fechaIngreso)} años de antigüedad)</span></div>
+    <div class="prow"><span class="pl">Días disponibles</span><span style="font-weight:600;color:var(--success)">${dv-us} días</span></div>`;
+  setTimeout(renderSaldoHorasEmp, 200);
+}
+
+// ADMIN
+function initAdmin(){
+  document.getElementById("s-login").style.display="none";
+  document.getElementById("s-adminlogin").style.display="none";
+  document.getElementById("s-admin").style.display="flex";
+  loadAdmResumen();actualizarBadgeAdmin();setTimeout(renderFeriadosWidget,300);
+}
+
+function aNav(v,el){
+  document.querySelectorAll("#s-admin .nav-item").forEach(n=>n.classList.remove("on"));
+  el.classList.add("on");
+  document.querySelectorAll("#s-admin .view").forEach(x=>x.classList.remove("on"));
+  document.getElementById("av-"+v).classList.add("on");
+  const titles={resumen:"Resumen general",empleadas:"Personal",asistencia:"Asistencia de hoy",vacpend:"Vacaciones",certificados_adm:"Certificados médicos",subir:"Recibos de sueldo",agregar:"Agregar empleada",sabados:"Gestión de sábados",horas:"Banco de horas"};
+  document.getElementById("adm-page-title").textContent=titles[v]||v;
+  if(v==="empleadas")loadEmpAdm();
+  if(v==="asistencia")loadAsistAdm();
+  if(v==="vacpend")loadVacAdm();
+  if(v==="certificados_adm")loadCertsAdm();
+  if(v==="sabados")loadSabados();
+  if(v==="horas")renderSaldoHorasAdmin();
+}
+
+function actualizarBadgeAdmin(){
+  const pend=getVacaciones().filter(v=>v.estado==="Pendiente").length;
+  const badge=document.getElementById("badge-vac");
+  if(badge){badge.style.display=pend>0?"inline":"none";badge.textContent=pend;}
+}
+function loadAdmResumen(){
+  const emps=getEmpleadas(),vacs=getVacaciones().filter(v=>v.estado==="Pendiente").length;
+  const certs=getCertificados(),mes=new Date().getMonth();
+  const certsEsMes=certs.filter(c=>{try{return new Date(c.cargado).getMonth()===mes;}catch{return false;}}).length;
+  const cumples=emps.filter(e=>{if(!e.fechaNacimiento)return false;return new Date(e.fechaNacimiento).getMonth()===mes;});
+  document.getElementById("kpi-adm").innerHTML=`
+    <div class="kpi-card"><div class="kpi-icon"><i class="ti ti-users"></i></div><div class="kpi-label">Total empleadas</div><div class="kpi-val">${emps.length}</div><div class="kpi-sub">Personal activo</div></div>
+    <div class="kpi-card amber"><div class="kpi-icon" style="background:#fff0dd;color:#e07b00"><i class="ti ti-beach"></i></div><div class="kpi-label">Vacaciones pendientes</div><div class="kpi-val amber">${vacs}</div><div class="kpi-sub">Esperando aprobación</div></div>
+    <div class="kpi-card red"><div class="kpi-icon" style="background:var(--danger-bg);color:var(--danger)"><i class="ti ti-file-medical"></i></div><div class="kpi-label">Certificados este mes</div><div class="kpi-val red">${certsEsMes}</div><div class="kpi-sub">Cargados en ${new Date().toLocaleString("es-AR",{month:"long"})}</div></div>
+    <div class="kpi-card green"><div class="kpi-icon" style="background:var(--success-bg);color:var(--success)"><i class="ti ti-cake"></i></div><div class="kpi-label">Cumpleaños este mes</div><div class="kpi-val green">${cumples.length}</div><div class="kpi-sub">Personal del mes</div></div>`;
+  const cl=document.getElementById("cumples-adm");
+  cl.innerHTML=!cumples.length?`<div class="empty-state"><i class="ti ti-cake"></i><p>Sin cumpleaños este mes</p></div>`:cumples.map(e=>{const d=new Date(e.fechaNacimiento);return`<div class="cumple-row"><span style="font-weight:500">${e.nombre}</span><span style="color:var(--text-muted);font-size:12px">día ${d.getDate()}</span></div>`;}).join("");
+  const crec=document.getElementById("cert-rec-adm");
+  const ultCerts=getCertificados().slice(-6).reverse();
+  crec.innerHTML=!ultCerts.length?`<div class="empty-state"><i class="ti ti-file-medical"></i><p>Sin certificados</p></div>`:ultCerts.map(c=>`<div class="cumple-row"><div><div style="font-size:13px;font-weight:500">${c.nombre}</div><div style="font-size:11.5px;color:var(--text-muted)">${c.tipo} · ${c.fecha}</div></div><span style="font-size:12px;color:var(--text-muted);max-width:45%;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.desc}</span></div>`).join("");
+}
+
+function loadEmpAdm(){
+  const emps=getEmpleadas(),cont=document.getElementById("lista-emp-adm");
+  if(!emps.length){cont.innerHTML=`<div class="empty-state"><i class="ti ti-users"></i><p>No hay empleadas cargadas aún</p></div>`;return;}
+  let h='<table class="tbl"><tr><th></th><th>Nombre</th><th>Puesto</th><th>PIN</th><th>Horario</th><th>Antigüedad</th><th>Vac.</th></tr>';
+  emps.forEach(e=>h+=`<tr><td><div class="emp-av" style="width:30px;height:30px;font-size:11px">${iniciales(e.nombre)}</div></td><td style="font-weight:500;color:var(--blue-900)">${e.nombre}</td><td>${e.puesto||"—"}</td><td style="font-family:'DM Mono',monospace;font-size:12px">${e.pin}</td><td style="font-size:11px;color:var(--text-secondary)">${e.horarios?Object.entries(e.horarios).filter(([d,h])=>h.trabaja).map(([d,h])=>d.charAt(0).toUpperCase()+d.slice(1,2)).join(" ")+" · "+((h2=Object.values(e.horarios).find(h=>h.trabaja&&h.entrada))=>h2?h2.entrada+"–"+h2.salida:"—")():"—"}</td><td><button onclick="abrirEditar('${e.pin}')" style="padding:4px 10px;border:1px solid var(--border);border-radius:6px;font-size:11px;cursor:pointer;background:#fff;color:var(--blue-700);font-family:DM Sans,sans-serif;"><i class="ti ti-edit" style=\"font-size:12px;vertical-align:-1px\"></i> Editar</button></td><td>${calcAntig(e.fechaIngreso)}</td><td>${diasVac(e.fechaIngreso)} días</td></tr>`);
+  cont.innerHTML=h+"</table>";
+}
+
+function loadAsistAdm(){
+  const emps=getEmpleadas(),hh=hoy(),fichs=getFichajes(),cont=document.getElementById("fich-hoy-adm");
+  if(!emps.length){cont.innerHTML=`<div class="empty-state"><i class="ti ti-clock"></i><p>Sin empleadas cargadas</p></div>`;return;}
+  let h='<table class="tbl"><tr><th>Empleada</th><th>Entrada</th><th>Salida</th><th>Horas trabajadas</th><th>Estado</th></tr>';
+  emps.forEach(emp=>{
+    const fh=fichs.find(f=>f.pin===emp.pin&&f.fecha===hh);
+    const estado=!fh?`<span class="badge badge-r">Sin fichar</span>`:fh.salida?`<span class="badge badge-a">Completo</span>`:`<span class="badge badge-p">En turno</span>`;
+    h+=`<tr><td style="font-weight:500">${emp.nombre}</td><td style="font-family:'DM Mono',monospace">${fh&&fh.entrada?fh.entrada:"—"}</td><td style="font-family:'DM Mono',monospace">${fh&&fh.salida?fh.salida:"—"}</td><td style="font-family:'DM Mono',monospace">${fh&&fh.horas?fh.horas:"—"}</td><td>${estado}</td></tr>`;
+  });
+  cont.innerHTML=h+"</table>";
+}
+
+function loadVacAdm(){
+  const vacs=getVacaciones();
+  const pend=vacs.filter(v=>v.estado==="Pendiente");
+  const cont=document.getElementById("vac-pend-adm");
+  cont.innerHTML=!pend.length?`<div class="empty-state"><i class="ti ti-beach"></i><p>No hay solicitudes pendientes</p></div>`:pend.map(v=>`<div class="acc-row"><div style="flex:1"><div class="acc-name">${v.nombre}</div><div class="acc-det">Del ${v.desde} al ${v.hasta} · ${v.dias} días hábiles${v.nota?" · "+v.nota:""}</div></div><div class="acc-btns"><button class="bap bap-a" onclick="accionVac(${v.id},'Aprobada')"><i class="ti ti-check" style="font-size:13px;vertical-align:-1px"></i> Aprobar</button><button class="bap bap-r" onclick="accionVac(${v.id},'Rechazada')"><i class="ti ti-x" style="font-size:13px;vertical-align:-1px"></i> Rechazar</button></div></div>`).join("");
+  const todas=vacs.slice().reverse().slice(0,30);
+  const tc=document.getElementById("vac-todas-adm");
+  if(!todas.length){tc.innerHTML=`<div class="empty-state"><i class="ti ti-list"></i><p>Sin solicitudes</p></div>`;return;}
+  let h='<table class="tbl"><tr><th>Empleada</th><th>Desde</th><th>Hasta</th><th>Días</th><th>Estado</th></tr>';
+  todas.forEach(v=>h+=`<tr><td style="font-weight:500">${v.nombre}</td><td>${v.desde}</td><td>${v.hasta}</td><td>${v.dias}</td><td><span class="badge badge-${v.estado==="Pendiente"?"p":v.estado==="Aprobada"?"a":"r"}">${v.estado}</span></td></tr>`);
+  tc.innerHTML=h+"</table>";
+}
+
+function accionVac(id,estado){
+  const vacs=getVacaciones(),idx=vacs.findIndex(v=>v.id===id);
+  if(idx>=0){
+    vacs[idx].estado=estado;
+    saveVacaciones(vacs);
+    const v=vacs[idx];
+    const tipo=estado==="Aprobada"?"ok":estado==="Rechazada"?"err":"warn";
+    const titulo="Vacaciones "+estado.toLowerCase();
+    const cuerpo="Tu solicitud del "+v.desde+" al "+v.hasta+" ("+v.dias+" días) fue "+estado.toLowerCase()+".";
+    agregarNotif(v.pin,tipo,titulo,cuerpo);
+    loadVacAdm();loadAdmResumen();actualizarBadgeAdmin();setTimeout(renderFeriadosWidget,300);
+  }
+}
+
+function loadCertsAdm(){
+  const certs=getCertificados().slice().reverse(),cont=document.getElementById("certs-adm");
+  if(!certs.length){cont.innerHTML=`<div class="empty-state"><i class="ti ti-file-medical"></i><p>Sin certificados registrados</p></div>`;return;}
+  let h="";
+  certs.forEach(c=>{
+    h+=`<div style="border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;display:grid;grid-template-columns:1fr ${c.imagen?"180px":"auto"};gap:12px;align-items:start;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <div style="font-size:13px;font-weight:600;color:var(--blue-900)">${c.nombre}</div>
+          ${c.tieneImagen?'<span class="badge badge-a" style="font-size:11px;">📎 Con foto</span>':'<span class="badge" style="background:var(--bg);color:var(--text-muted);font-size:11px;">Sin foto</span>'}
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px;">${c.tipo} · ${c.fecha}</div>
+        <div style="font-size:12.5px;color:var(--text-secondary)">${c.desc}</div>
+      </div>
+      ${c.imagen?`<img src="${c.imagen}" style="width:100%;border-radius:8px;border:1px solid var(--border);max-height:120px;object-fit:contain;cursor:pointer;" onclick="verImagenGrande(${c.id})" title="Tocar para ampliar">`:""}
+    </div>`;
+  });
+  cont.innerHTML=h;
+}
+
+function subirRecibo(){
+  const pin=document.getElementById("r-pin").value,nom=document.getElementById("r-nom").value,per=document.getElementById("r-per").value,mon=document.getElementById("r-mon").value,lnk=document.getElementById("r-lnk").value,msg=document.getElementById("rmsg");
+  if(!pin||!per){msg.textContent="Completá al menos el PIN y el período";msg.className="fmsg err";return;}
+  const recs=getRecibos();
+  recs.push({id:Date.now(),pin,nombre:nom,periodo:per,monto:mon,link:lnk,fecha:new Date().toISOString()});
+  saveRecibos(recs);msg.textContent="Recibo subido correctamente";msg.className="fmsg ok";
+  ["r-pin","r-nom","r-per","r-mon","r-lnk"].forEach(i=>document.getElementById(i).value="");
+}
+
+function agregarEmp(){
+  const get=id=>document.getElementById(id).value,pin=get("ne-pin"),nom=get("ne-nom"),msg=document.getElementById("emsg");
+  if(!pin||!nom||pin.length!==4){msg.textContent="Nombre y PIN de 4 dígitos son obligatorios";msg.className="fmsg err";return;}
+  const emps=getEmpleadas();
+  if(emps.find(e=>String(e.pin)===pin)){msg.textContent="Ya existe una empleada con ese PIN. Elegí otro.";msg.className="fmsg err";return;}
+  const horarios={
+    lunes:{entrada:get("h-lun-e"),salida:get("h-lun-s"),trabaja:document.getElementById("h-lun-t").checked},
+    martes:{entrada:get("h-mar-e"),salida:get("h-mar-s"),trabaja:document.getElementById("h-mar-t").checked},
+    miercoles:{entrada:get("h-mie-e"),salida:get("h-mie-s"),trabaja:document.getElementById("h-mie-t").checked},
+    jueves:{entrada:get("h-jue-e"),salida:get("h-jue-s"),trabaja:document.getElementById("h-jue-t").checked},
+    viernes:{entrada:get("h-vie-e"),salida:get("h-vie-s"),trabaja:document.getElementById("h-vie-t").checked},
+    sabado:{entrada:get("h-sab-e"),salida:get("h-sab-s"),trabaja:document.getElementById("h-sab-t").checked}
+  };
+  const diasSemana=["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+  const hoyDia=diasSemana[new Date().getDay()];
+  const hdHoy=horarios[hoyDia]||{};
+  emps.push({nombre:nom,puesto:get("ne-pue"),pin,dni:get("ne-dni"),fechaNacimiento:get("ne-fnac"),fechaIngreso:get("ne-fing"),email:get("ne-mail"),telefono:get("ne-tel"),telefonoFamiliar:get("ne-telf"),domicilio:get("ne-dom"),horarios,horaEntrada:hdHoy.entrada||"",horaSalida:hdHoy.salida||"",trabajaSabado:get("ne-sab")});
+  saveEmpleadas(emps);msg.textContent="Empleada agregada correctamente";msg.className="fmsg ok";
+  ["ne-nom","ne-pue","ne-pin","ne-dni","ne-fnac","ne-fing","ne-mail","ne-tel","ne-telf","ne-dom"].forEach(i=>document.getElementById(i).value="");const neSabEl=document.getElementById("ne-sab");if(neSabEl)neSabEl.value="NO";["h-lun-e","h-lun-s","h-mar-e","h-mar-s","h-mie-e","h-mie-s","h-jue-e","h-jue-s","h-vie-e","h-vie-s","h-sab-e","h-sab-s"].forEach(i=>document.getElementById(i).value="");["h-lun-t","h-mar-t","h-mie-t","h-jue-t","h-vie-t"].forEach(i=>document.getElementById(i).checked=true);document.getElementById("h-sab-t").checked=false;
+  loadAdmResumen();
+}
+
+function abrirEditar(pin){
+  const emps=getEmpleadas(),emp=emps.find(e=>String(e.pin)===String(pin));
+  if(!emp)return;
+  document.getElementById("edit-pin-original").value=pin;
+  document.getElementById("edit-nom").value=emp.nombre||"";
+  document.getElementById("edit-pue").value=emp.puesto||"";
+  document.getElementById("edit-pin").value=emp.pin||"";
+  document.getElementById("edit-dni").value=emp.dni||"";
+  document.getElementById("edit-fnac").value=emp.fechaNacimiento||"";
+  document.getElementById("edit-fing").value=emp.fechaIngreso||"";
+  document.getElementById("edit-mail").value=emp.email||"";
+  document.getElementById("edit-tel").value=emp.telefono||"";
+  document.getElementById("edit-telf").value=emp.telefonoFamiliar||"";
+  document.getElementById("edit-dom").value=emp.domicilio||"";
+  const editSabSel=document.getElementById("edit-sab");
+  if(editSabSel)editSabSel.value=emp.trabajaSabado||"NO";
+  const dias=["lun","mar","mie","jue","vie","sab"];
+  const diaMap={lun:"lunes",mar:"martes",mie:"miercoles",jue:"jueves",vie:"viernes",sab:"sabado"};
+  dias.forEach(d=>{
+    const h=emp.horarios&&emp.horarios[diaMap[d]]?emp.horarios[diaMap[d]]:{entrada:"",salida:"",trabaja:d!=="sab"};
+    document.getElementById("ed-"+d+"-e").value=h.entrada||"";
+    document.getElementById("ed-"+d+"-s").value=h.salida||"";
+    document.getElementById("ed-"+d+"-t").checked=h.trabaja||false;
+  });
+  document.getElementById("edit-msg").textContent="";
+  document.getElementById("modal-editar").style.display="flex";
+}
+
+function cerrarModal(){
+  document.getElementById("modal-editar").style.display="none";
+}
+
+// ── SÁBADOS ──────────────────────────────────────────────
+const SAB_BASE = new Date(2026, 5, 20); // 20/06/2026 = Grupo A
+
+function esSabadoGrupoA(fecha){
+  const diff = Math.round((fecha - SAB_BASE) / (7*24*3600*1000));
+  return diff % 2 === 0;
+}
+
+function getExcepcionesSab(){return dbGet("rrhh_sab_excepciones")||[];}
+function saveExcepcionesSab(e){dbSet("rrhh_sab_excepciones",e);}
+
+function trabajaEsteSabado(emp, fecha){
+  // Verificar excepciones puntuales primero
+  const fechaStr = fecha.toLocaleDateString("es-AR").split("/").map(x=>x.padStart(2,"0")).join("/");
+  const exc = getExcepcionesSab().find(e=>e.pin===emp.pin&&e.fecha===fechaStr);
+  if(exc) return exc.accion==="habilitar";
+  // Sin excepción: aplicar regla de grupo
+  if(emp.trabajaSabado==="NO"||!emp.trabajaSabado) return false;
+  if(emp.trabajaSabado==="EVENTUAL") return false;
+  if(emp.trabajaSabado==="A") return esSabadoGrupoA(fecha);
+  if(emp.trabajaSabado==="B") return !esSabadoGrupoA(fecha);
+  return false;
+}
+
+function getProximosSabados(n){
+  const sabados=[];
+  const hoy=new Date();hoy.setHours(0,0,0,0);
+  let cur=new Date(hoy);
+  while(cur.getDay()!==6)cur.setDate(cur.getDate()+1);
+  for(let i=0;i<n;i++){
+    sabados.push(new Date(cur));
+    cur.setDate(cur.getDate()+7);
+  }
+  return sabados;
+}
+
+function fmtSabado(fecha){
+  const dias=["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
+  const meses=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  return dias[fecha.getDay()]+" "+fecha.getDate()+" "+meses[fecha.getMonth()];
+}
+
+function loadSabados(){
+  const emps=getEmpleadas().filter(e=>e.trabajaSabado&&e.trabajaSabado!=="NO");
+  const sabados=getProximosSabados(6);
+  
+  // Llenar select de empleadas
+  const sel=document.getElementById("sab-emp-sel");
+  if(sel){
+    const todos=getEmpleadas();
+    sel.innerHTML=todos.map(e=>`<option value="${e.pin}">${e.nombre}</option>`).join("");
+  }
+
+  // Tabla calendario
+  const calCont=document.getElementById("cal-sabados");
+  if(!calCont)return;
+  if(!emps.length){calCont.innerHTML=`<div class="empty-state"><i class="ti ti-calendar-week"></i><p>No hay empleadas con sábados asignados</p></div>`;return;}
+  
+  let h=`<table class="tbl"><tr><th>Empleada</th>`;
+  sabados.forEach(s=>h+=`<th style="text-align:center;font-size:10px">${fmtSabado(s)}<br><span style="font-size:9px;color:${esSabadoGrupoA(s)?"var(--blue-600)":"var(--success)"}">${esSabadoGrupoA(s)?"Gpo A":"Gpo B"}</span></th>`);
+  h+=`</tr>`;
+  emps.forEach(emp=>{
+    h+=`<tr><td style="font-size:12px;font-weight:500">${emp.nombre.split(",")[0]}</td>`;
+    sabados.forEach(s=>{
+      const trabaja=trabajaEsteSabado(emp,s);
+      const exc=getExcepcionesSab().find(e=>e.pin===emp.pin&&e.fecha===s.toLocaleDateString("es-AR").split("/").map(x=>x.padStart(2,"0")).join("/"));
+      const esExc=!!exc;
+      h+=`<td style="text-align:center"><span style="font-size:16px" title="${esExc?"Excepción: "+exc.motivo:""}">${trabaja?"✅":"—"}</span>${esExc?`<div style="font-size:9px;color:var(--blue-400)">exc.</div>`:""}</td>`;
+    });
+    h+=`</tr>`;
+  });
+  calCont.innerHTML=h+"</table>";
+
+  // Tabla grupos
+  const grpCont=document.getElementById("tabla-grupos");
+  if(grpCont){
+    const todos=getEmpleadas();
+    const grupoLabels={A:"Grupo A",B:"Grupo B",EVENTUAL:"Eventual",NO:"No trabaja"};
+    let g=`<table class="tbl"><tr><th>Empleada</th><th>Puesto</th><th>Grupo sábados</th></tr>`;
+    todos.forEach(e=>g+=`<tr><td style="font-weight:500">${e.nombre}</td><td>${e.puesto||"—"}</td><td><span class="badge ${e.trabajaSabado==="A"?"badge-a":e.trabajaSabado==="B"?"badge-p":e.trabajaSabado==="EVENTUAL"?"badge-r":"" }" style="${!e.trabajaSabado||e.trabajaSabado==="NO"?"color:var(--text-muted);font-size:12px":""}">${grupoLabels[e.trabajaSabado]||"No trabaja"}</span></td></tr>`);
+    grpCont.innerHTML=g+"</table>";
+  }
+}
+
+function guardarExcepcionSab(){
+  const pin=document.getElementById("sab-emp-sel").value;
+  const fecha=document.getElementById("sab-fecha").value;
+  const accion=document.getElementById("sab-accion").value;
+  const motivo=document.getElementById("sab-motivo").value;
+  const msg=document.getElementById("sab-msg");
+  if(!pin||!fecha){msg.textContent="Seleccioná empleada y fecha";msg.className="fmsg err";return;}
+  const d=new Date(fecha+"T12:00:00");
+  if(d.getDay()!==6){msg.textContent="La fecha seleccionada no es sábado";msg.className="fmsg err";return;}
+  const fechaStr=d.toLocaleDateString("es-AR").split("/").map(x=>x.padStart(2,"0")).join("/");
+  const exc=getExcepcionesSab().filter(e=>!(e.pin===pin&&e.fecha===fechaStr));
+  const emp=getEmpleadas().find(e=>e.pin===pin);
+  exc.push({pin,nombre:emp?emp.nombre:"",fecha:fechaStr,accion,motivo,creado:new Date().toISOString()});
+  saveExcepcionesSab(exc);
+  msg.textContent="Cambio guardado correctamente";msg.className="fmsg ok";
+  if(emp){
+    const tit=accion==="habilitar"?"Sábado habilitado":"Sábado cancelado";
+    const body=accion==="habilitar"?`Se habilitó tu asistencia el sábado ${fechaStr}.`:`Se canceló tu asistencia el sábado ${fechaStr}.`;
+    agregarNotif(pin,accion==="habilitar"?"ok":"warn",tit,body+(motivo?" Motivo: "+motivo:""));
+  }
+  setTimeout(()=>loadSabados(),500);
+}
+
+function guardarEdicion(){
+  const pinOrig=document.getElementById("edit-pin-original").value;
+  const pinNuevo=document.getElementById("edit-pin").value;
+  const nom=document.getElementById("edit-nom").value;
+  const msg=document.getElementById("edit-msg");
+  if(!nom||!pinNuevo||pinNuevo.length!==4){msg.textContent="Nombre y PIN de 4 dígitos son obligatorios";msg.className="fmsg err";return;}
+  const emps=getEmpleadas();
+  const idx=emps.findIndex(e=>String(e.pin)===String(pinOrig));
+  if(idx<0){msg.textContent="Empleada no encontrada";msg.className="fmsg err";return;}
+  if(pinNuevo!==pinOrig&&emps.find(e=>String(e.pin)===pinNuevo)){msg.textContent="Ese PIN ya está en uso por otra empleada";msg.className="fmsg err";return;}
+  const diaMap={lun:"lunes",mar:"martes",mie:"miercoles",jue:"jueves",vie:"viernes",sab:"sabado"};
+  const horarios={};
+  ["lun","mar","mie","jue","vie","sab"].forEach(d=>{
+    horarios[diaMap[d]]={entrada:document.getElementById("ed-"+d+"-e").value,salida:document.getElementById("ed-"+d+"-s").value,trabaja:document.getElementById("ed-"+d+"-t").checked};
+  });
+  const diasN=["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+  const diaHoy=diasN[new Date().getDay()];
+  const hHoy=horarios[diaHoy]||{};
+  emps[idx]={...emps[idx],nombre:nom,puesto:document.getElementById("edit-pue").value,pin:pinNuevo,dni:document.getElementById("edit-dni").value,fechaNacimiento:document.getElementById("edit-fnac").value,fechaIngreso:document.getElementById("edit-fing").value,email:document.getElementById("edit-mail").value,telefono:document.getElementById("edit-tel").value,telefonoFamiliar:document.getElementById("edit-telf").value,domicilio:document.getElementById("edit-dom").value,horarios,horaEntrada:hHoy.entrada||"",horaSalida:hHoy.salida||"",trabajaSabado:document.getElementById("edit-sab")?document.getElementById("edit-sab").value:"NO"};
+  if(pinNuevo!==pinOrig){
+    const fichs=getFichajes().map(f=>f.pin===pinOrig?{...f,pin:pinNuevo}:f);saveFichajes(fichs);
+    const vacs=getVacaciones().map(v=>v.pin===pinOrig?{...v,pin:pinNuevo}:v);saveVacaciones(vacs);
+    const certs=getCertificados().map(c=>c.pin===pinOrig?{...c,pin:pinNuevo}:c);saveCertificados(certs);
+    const recs=getRecibos().map(r=>r.pin===pinOrig?{...r,pin:pinNuevo}:r);saveRecibos(recs);
+  }
+  saveEmpleadas(emps);
+  msg.textContent="Cambios guardados correctamente";msg.className="fmsg ok";
+  setTimeout(()=>{cerrarModal();loadEmpAdm();loadAdmResumen();},1000);
+}
+
+function eliminarEmpleada(){
+  const pin=document.getElementById("edit-pin-original").value;
+  const emps=getEmpleadas(),emp=emps.find(e=>String(e.pin)===String(pin));
+  if(!emp)return;
+  if(!confirm("¿Segura que querés eliminar a "+emp.nombre+"? Se borrarán todos sus datos."))return;
+  saveEmpleadas(emps.filter(e=>String(e.pin)!==String(pin)));
+  cerrarModal();loadEmpAdm();loadAdmResumen();
+}
+
+
+// ── FERIADOS ARGENTINA 2026 ──────────────────────────────────────
+const FERIADOS_2026 = [
+  // ENERO
+  {fecha:"01/01/2026", nombre:"Año Nuevo", tipo:"nacional"},
+  // FEBRERO - CARNAVAL
+  {fecha:"16/02/2026", nombre:"Carnaval", tipo:"nacional"},
+  {fecha:"17/02/2026", nombre:"Carnaval", tipo:"nacional"},
+  // MARZO
+  {fecha:"24/03/2026", nombre:"Día Nacional de la Memoria por la Verdad y la Justicia", tipo:"nacional"},
+  // SEMANA SANTA
+  {fecha:"02/04/2026", nombre:"Día del Veterano y de los Caídos en la Guerra de Malvinas", tipo:"nacional"},
+  {fecha:"02/04/2026", nombre:"Jueves Santo (no laborable)", tipo:"nolaborable"},
+  {fecha:"03/04/2026", nombre:"Viernes Santo", tipo:"nacional"},
+  // MAYO
+  {fecha:"01/05/2026", nombre:"Día del Trabajador", tipo:"nacional"},
+  {fecha:"25/05/2026", nombre:"Día de la Revolución de Mayo", tipo:"nacional"},
+  // JUNIO
+  {fecha:"15/06/2026", nombre:"Paso a la Inmortalidad del Gral. Martín Miguel de Güemes", tipo:"nacional"},
+  {fecha:"20/06/2026", nombre:"Paso a la Inmortalidad del Gral. Manuel Belgrano / Día de la Bandera", tipo:"nacional"},
+  // JULIO
+  {fecha:"09/07/2026", nombre:"Día de la Independencia", tipo:"nacional"},
+  // AGOSTO
+  {fecha:"17/08/2026", nombre:"Paso a la Inmortalidad del Gral. José de San Martín", tipo:"nacional"},
+  // OCTUBRE
+  {fecha:"12/10/2026", nombre:"Día del Respeto a la Diversidad Cultural", tipo:"nacional"},
+  // NOVIEMBRE
+  {fecha:"20/11/2026", nombre:"Día de la Soberanía Nacional", tipo:"nacional"},
+  // DICIEMBRE
+  {fecha:"08/12/2026", nombre:"Inmaculada Concepción de María", tipo:"nacional"},
+  {fecha:"25/12/2026", nombre:"Navidad", tipo:"nacional"},
+];
+
+function getFeriadoHoy(){
+  const hoy = new Date();
+  const hoyStr = [String(hoy.getDate()).padStart(2,"0"), String(hoy.getMonth()+1).padStart(2,"0"), hoy.getFullYear()].join("/");
+  return FERIADOS_2026.find(f=>f.fecha===hoyStr)||null;
+}
+
+function getProximoFeriado(){
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+  const proximos = FERIADOS_2026.map(f=>{
+    const parts = f.fecha.split("/");
+    const d = new Date(parts[2], parts[1]-1, parts[0]);
+    const diff = Math.ceil((d-hoy)/(1000*60*60*24));
+    return {...f, date:d, diff};
+  }).filter(f=>f.diff>=0).sort((a,b)=>a.diff-b.diff);
+  return proximos[0]||null;
+}
+
+function renderFeriadosWidgetEmp(){
+  // Versión simplificada para empleada - solo próximo feriado
+  const cont = document.getElementById("feriados-widget-emp");
+  if(!cont) return;
+  const hoy = getFeriadoHoy();
+  const prox = getProximoFeriado();
+  let html = "";
+  if(hoy){
+    html += `<div style="background:var(--warning-bg);border:1px solid #f5d78e;border-radius:10px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;">
+      <div style="font-size:20px;">🎉</div>
+      <div><div style="font-size:12px;font-weight:600;color:var(--warning);">HOY ES FERIADO</div>
+      <div style="font-size:13px;color:var(--text-primary);margin-top:1px;">${hoy.nombre}</div></div>
+    </div>`;
+  }
+  if(prox && prox.diff>0){
+    const icon=prox.diff<=7?"🔴":prox.diff<=15?"🟡":"🟢";
+    html+=`<div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--bg);border-radius:8px;">
+      <div style="font-size:18px;">${icon}</div>
+      <div style="flex:1"><div style="font-size:12px;font-weight:500;color:var(--blue-900)">${prox.nombre}</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">${prox.fecha.slice(0,5)}</div></div>
+      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--blue-600);font-family:'DM Mono',monospace">${prox.diff}</div>
+      <div style="font-size:10px;color:var(--text-muted);">días</div></div>
+    </div>`;
+  }
+  cont.innerHTML = html || '<p style="font-size:12px;color:var(--text-muted)">No hay feriados próximos</p>';
+}
+function renderFeriadosWidget(){
+  const cont = document.getElementById("feriados-widget");
+  if(!cont) return;
+  
+  const hoy = getFeriadoHoy();
+  const prox = getProximoFeriado();
+  
+  let html = "";
+  
+  if(hoy){
+    html += `<div style="background:var(--warning-bg);border:1px solid #f5d78e;border-radius:10px;padding:12px 14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;">
+      <div style="font-size:22px;">🎉</div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--warning);">HOY ES FERIADO</div>
+        <div style="font-size:13px;font-weight:500;color:var(--text-primary);margin-top:2px;">${hoy.nombre}</div>
+        ${hoy.tipo==="nolaborable"?'<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">No laborable — el centro trabaja</div>':""}
+      </div>
+    </div>`;
+  }
+  
+  if(prox && prox.diff > 0){
+    const icon = prox.diff<=7?"🔴":prox.diff<=15?"🟡":"🟢";
+    const partes = prox.fecha.split("/");
+    const fechaFmt = partes[0]+"/"+partes[1];
+    html += `<div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;">
+      <div style="font-size:22px;">${icon}</div>
+      <div style="flex:1;">
+        <div style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;">Próximo feriado</div>
+        <div style="font-size:13px;font-weight:600;color:var(--blue-900);margin-top:2px;">${prox.nombre}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${fechaFmt} · ${prox.tipo==="nolaborable"?"No laborable":"Feriado nacional"}</div>
+      </div>
+      <div style="text-align:center;background:#fff;border:1px solid var(--border);border-radius:8px;padding:8px 12px;flex-shrink:0;">
+        <div style="font-size:22px;font-weight:700;color:var(--blue-600);font-family:'DM Mono',monospace;line-height:1">${prox.diff}</div>
+        <div style="font-size:10px;color:var(--text-muted);">días</div>
+      </div>
+    </div>`;
+  }
+  
+  // Lista de feriados del resto del año
+  const hoyD = new Date(); hoyD.setHours(0,0,0,0);
+  const resto = FERIADOS_2026.filter(f=>{
+    const parts=f.fecha.split("/");
+    const d=new Date(parts[2],parts[1]-1,parts[0]);
+    return d>=hoyD;
+  });
+  
+  if(resto.length){
+    html += `<div style="margin-top:14px;"><div style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">Feriados restantes 2026</div>`;
+    resto.forEach(f=>{
+      const parts=f.fecha.split("/");
+      const d=new Date(parts[2],parts[1]-1,parts[0]);
+      const diff=Math.ceil((d-hoyD)/(1000*60*60*24));
+      const dias=["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
+      const meses=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+      const fechaFmt=dias[d.getDay()]+" "+d.getDate()+" "+meses[d.getMonth()];
+      const esHoy=diff===0;
+      html+=`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--bg);${esHoy?"background:var(--warning-bg);margin:0 -4px;padding:8px 4px;border-radius:6px":""}">
+        <div style="width:52px;text-align:center;flex-shrink:0;">
+          <div style="font-size:11px;font-weight:600;color:var(--blue-600);font-family:'DM Mono',monospace">${fechaFmt}</div>
+        </div>
+        <div style="flex:1;font-size:12.5px;color:var(--text-primary)">${f.nombre}</div>
+        <div style="font-size:11px;color:var(--text-muted);flex-shrink:0">${esHoy?"Hoy":diff===1?"Mañana":diff+" días"}</div>
+      </div>`;
+    });
+    html += "</div>";
+  }
+  
+  cont.innerHTML = html || '<div class="empty-state"><i class="ti ti-calendar-check"></i><p>No hay feriados próximos</p></div>';
+}
+
+
+// ── SISTEMA DE HORAS ─────────────────────────────────────────────
+function horasAMinutos(horaStr){
+  if(!horaStr||!horaStr.includes(":"))return 0;
+  const [h,m]=horaStr.split(":").map(Number);
+  return h*60+m;
+}
+
+function minutosAHoras(mins){
+  const abs=Math.abs(mins);
+  const h=Math.floor(abs/60);
+  const m=abs%60;
+  return (mins<0?"-":"")+h+"h "+String(m).padStart(2,"0")+"m";
+}
+
+function calcularSaldoHoras(pin, emp){
+  const fichajes=getFichajes().filter(f=>f.pin===pin&&f.entrada&&f.salida);
+  let saldoMinutos=0;
+  
+  fichajes.forEach(f=>{
+    // Horas trabajadas
+    const trabajados=horasAMinutos(f.horas);
+    
+    // Horas esperadas ese día
+    const partes=f.fecha.split("/");
+    const fecha=new Date(partes[2],partes[1]-1,partes[0]);
+    const diasMap=["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+    const diaNombre=diasMap[fecha.getDay()];
+    
+    let esperados=0;
+    if(emp.horarios&&emp.horarios[diaNombre]&&emp.horarios[diaNombre].trabaja){
+      const hEnt=horasAMinutos(emp.horarios[diaNombre].entrada);
+      const hSal=horasAMinutos(emp.horarios[diaNombre].salida);
+      esperados=hSal-hEnt;
+    } else if(emp.horaEntrada&&emp.horaSalida){
+      esperados=horasAMinutos(emp.horaSalida)-horasAMinutos(emp.horaEntrada);
+    }
+    
+    if(esperados>0) saldoMinutos+=(trabajados-esperados);
+  });
+  
+  return saldoMinutos;
+}
+
+function renderSaldoHorasEmp(){
+  const cont=document.getElementById("saldo-horas-emp");
+  if(!cont||!sesion.emp)return;
+  const emp=getEmpleadas().find(e=>e.pin===sesion.pin);
+  if(!emp)return;
+  const saldo=calcularSaldoHoras(sesion.pin,emp);
+  
+  if(saldo===0){
+    cont.innerHTML=`<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border-radius:8px;">
+      <div style="font-size:20px;">✅</div>
+      <div><div style="font-size:13px;font-weight:500;color:var(--text-primary)">Tus horas están al día</div>
+      <div style="font-size:12px;color:var(--text-muted)">Sin diferencia acumulada</div></div>
+    </div>`;
+    return;
+  }
+  
+  if(saldo<0){
+    // Debe horas — se lo mostramos
+    cont.innerHTML=`<div style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--danger-bg);border:1px solid #f5c6c2;border-radius:8px;">
+      <div style="font-size:22px;">⚠️</div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--danger)">Tenés horas pendientes</div>
+        <div style="font-size:20px;font-weight:700;color:var(--danger);font-family:'DM Mono',monospace;margin:4px 0">${minutosAHoras(saldo)}</div>
+        <div style="font-size:11.5px;color:var(--danger)">A recuperar en próximas jornadas</div>
+      </div>
+    </div>`;
+  } else {
+    // Tiene horas a favor — NO se lo mostramos (solo admin)
+    cont.innerHTML=`<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border-radius:8px;">
+      <div style="font-size:20px;">✅</div>
+      <div><div style="font-size:13px;font-weight:500;color:var(--text-primary)">Tus horas están al día</div>
+      <div style="font-size:12px;color:var(--text-muted)">Sin pendientes</div></div>
+    </div>`;
+  }
+}
+
+function renderSaldoHorasAdmin(){
+  const cont=document.getElementById("tabla-horas-admin");
+  if(!cont)return;
+  const emps=getEmpleadas();
+  if(!emps.length){
+    cont.innerHTML=`<div class="empty-state"><i class="ti ti-clock"></i><p>Sin empleadas cargadas</p></div>`;
+    return;
+  }
+  
+  let html=`<table class="tbl"><tr><th>Empleada</th><th>Horas trabajadas</th><th>Horas esperadas</th><th>Saldo</th><th>Estado</th></tr>`;
+  
+  emps.forEach(emp=>{
+    const fichajes=getFichajes().filter(f=>f.pin===emp.pin&&f.entrada&&f.salida);
+    let trabajados=0,esperados=0;
+    
+    fichajes.forEach(f=>{
+      trabajados+=horasAMinutos(f.horas);
+      const partes=f.fecha.split("/");
+      const fecha=new Date(partes[2],partes[1]-1,partes[0]);
+      const diasMap=["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+      const diaNombre=diasMap[fecha.getDay()];
+      if(emp.horarios&&emp.horarios[diaNombre]&&emp.horarios[diaNombre].trabaja){
+        const hEnt=horasAMinutos(emp.horarios[diaNombre].entrada);
+        const hSal=horasAMinutos(emp.horarios[diaNombre].salida);
+        esperados+=hSal-hEnt;
+      } else if(emp.horaEntrada&&emp.horaSalida){
+        esperados+=horasAMinutos(emp.horaSalida)-horasAMinutos(emp.horaEntrada);
+      }
+    });
+    
+    const saldo=trabajados-esperados;
+    const saldoStr=minutosAHoras(saldo);
+    const estado=saldo>0
+      ?`<span class="badge badge-a">+${saldoStr} a favor</span>`
+      :saldo<0
+      ?`<span class="badge badge-r">${saldoStr} debe</span>`
+      :`<span class="badge" style="background:var(--bg);color:var(--text-muted)">Al día</span>`;
+    
+    html+=`<tr>
+      <td style="font-weight:500">${emp.nombre}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">${minutosAHoras(trabajados)}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">${minutosAHoras(esperados)}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:${saldo>0?"var(--success)":saldo<0?"var(--danger)":"var(--text-muted)"}">${saldo>=0?"+":""}${saldoStr}</td>
+      <td>${estado}</td>
+    </tr>`;
+  });
+  
+  cont.innerHTML=html+"</table>";
+}
+
+
+// ── CERTIFICADOS CON FOTO (almacenamiento local comprimido) ──────
+let certFileData = null;
+let certFileName = null;
+
+function previsualizarFoto(input){
+  const file = input.files[0];
+  if(!file) return;
+  certFileName = file.name;
+  
+  // Comprimir imagen antes de guardar
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const MAX = 800;
+      let w = img.width, h = img.height;
+      if(w > MAX){ h = h*(MAX/w); w = MAX; }
+      if(h > MAX){ w = w*(MAX/h); h = MAX; }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+      certFileData = canvas.toDataURL("image/jpeg", 0.7);
+      document.getElementById("cert-img-preview").src = certFileData;
+      document.getElementById("foto-preview").style.display = "block";
+      document.getElementById("foto-btns").style.display = "none";
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function quitarFoto(){
+  certFileData = null; certFileName = null;
+  document.getElementById("cert-img-preview").src = "";
+  document.getElementById("foto-preview").style.display = "none";
+  document.getElementById("foto-btns").style.display = "block";
+  document.getElementById("cert-camara").value = "";
+  document.getElementById("cert-archivo").value = "";
+}
+
+</script>
+
+<!-- MODAL EDITAR EMPLEADA -->
+<div id="modal-editar" style="display:none;position:fixed;inset:0;background:rgba(10,25,41,0.55);z-index:300;align-items:center;justify-content:center;overflow-y:auto;padding:20px;">
+  <div style="background:#fff;border-radius:14px;padding:28px;width:620px;max-width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.2);max-height:90vh;overflow-y:auto;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div style="font-size:16px;font-weight:600;color:var(--blue-900);display:flex;align-items:center;gap:8px;"><i class="ti ti-user-edit" style="color:var(--blue-400)"></i>Editar empleada</div>
+      <button onclick="cerrarModal()" style="border:none;background:none;cursor:pointer;font-size:20px;color:var(--text-muted);">✕</button>
+    </div>
+    <input type="hidden" id="edit-pin-original">
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Nombre completo *</label><input class="form-control" type="text" id="edit-nom"></div>
+      <div class="form-group"><label class="form-label">Puesto</label><input class="form-control" type="text" id="edit-pue"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">PIN (4 dígitos) *</label><input class="form-control" type="text" id="edit-pin" maxlength="4"></div>
+      <div class="form-group"><label class="form-label">DNI</label><input class="form-control" type="text" id="edit-dni"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Fecha de nacimiento</label><input class="form-control" type="date" id="edit-fnac"></div>
+      <div class="form-group"><label class="form-label">Fecha de ingreso</label><input class="form-control" type="date" id="edit-fing"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Email</label><input class="form-control" type="email" id="edit-mail"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Teléfono</label><input class="form-control" type="text" id="edit-tel"></div>
+      <div class="form-group"><label class="form-label">Teléfono familiar</label><input class="form-control" type="text" id="edit-telf"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Domicilio</label><input class="form-control" type="text" id="edit-dom"></div>
+    <div class="form-group">
+      <label class="form-label">Horarios por día</label>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:4px;">
+        <tr style="background:var(--bg);">
+          <th style="padding:7px 10px;text-align:left;font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--border);">Día</th>
+          <th style="padding:7px 10px;text-align:left;font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--border);">Entrada</th>
+          <th style="padding:7px 10px;text-align:left;font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--border);">Salida</th>
+          <th style="padding:7px 10px;text-align:center;font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--border);">Trabaja</th>
+        </tr>
+        <tr><td style="padding:6px 10px;border-bottom:1px solid var(--bg);font-weight:500;">Lunes</td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="ed-lun-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="ed-lun-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg);text-align:center"><input type="checkbox" id="ed-lun-t" style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+        <tr><td style="padding:6px 10px;border-bottom:1px solid var(--bg);font-weight:500;">Martes</td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="ed-mar-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="ed-mar-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg);text-align:center"><input type="checkbox" id="ed-mar-t" style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+        <tr><td style="padding:6px 10px;border-bottom:1px solid var(--bg);font-weight:500;">Miércoles</td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="ed-mie-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="ed-mie-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg);text-align:center"><input type="checkbox" id="ed-mie-t" style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+        <tr><td style="padding:6px 10px;border-bottom:1px solid var(--bg);font-weight:500;">Jueves</td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="ed-jue-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="ed-jue-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg);text-align:center"><input type="checkbox" id="ed-jue-t" style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+        <tr><td style="padding:6px 10px;border-bottom:1px solid var(--bg);font-weight:500;">Viernes</td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="ed-vie-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg)"><input class="form-control" type="time" id="ed-vie-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;border-bottom:1px solid var(--bg);text-align:center"><input type="checkbox" id="ed-vie-t" style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+        <tr><td style="padding:6px 10px;font-weight:500;">Sábado</td><td style="padding:4px 6px;"><input class="form-control" type="time" id="ed-sab-e" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;"><input class="form-control" type="time" id="ed-sab-s" style="padding:5px 8px;font-size:12px;"></td><td style="padding:4px 6px;text-align:center"><input type="checkbox" id="ed-sab-t" style="width:16px;height:16px;cursor:pointer;accent-color:var(--blue-600)"></td></tr>
+      </table>
+    </div>
+    <div class="form-group" style="margin-top:14px;"><label class="form-label">Grupo sábados</label>
+      <select class="form-control" id="edit-sab">
+        <option value="NO">No trabaja sábados</option>
+        <option value="A">Grupo A (trabaja el sábado 20/06)</option>
+        <option value="B">Grupo B (trabaja el sábado 27/06)</option>
+        <option value="EVENTUAL">Eventual (doctoras u otros)</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:20px;">
+      <button onclick="guardarEdicion()" style="flex:1;padding:11px;background:var(--blue-600);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:DM Sans,sans-serif;">Guardar cambios</button>
+      <button onclick="eliminarEmpleada()" style="padding:11px 16px;background:var(--danger-bg);color:var(--danger);border:1px solid #f5c6c2;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:DM Sans,sans-serif;">Eliminar</button>
+      <button onclick="cerrarModal()" style="padding:11px 16px;background:var(--bg);color:var(--text-secondary);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;font-family:DM Sans,sans-serif;">Cancelar</button>
+    </div>
+    <div class="fmsg" id="edit-msg" style="margin-top:8px;"></div>
+  </div>
+</div>
+</body>
+</html>
